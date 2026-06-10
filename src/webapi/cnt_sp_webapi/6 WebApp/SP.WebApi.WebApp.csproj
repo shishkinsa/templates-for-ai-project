@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\3 UseCases\SP.WebApi.UseCases\SP.WebApi.UseCases.csproj" />
+    <ProjectReference Include="..\5 Infrastructure.Implementation\SP.WebApi.DataAccess.Postgres\SP.WebApi.DataAccess.Postgres.csproj" />
+    <ProjectReference Include="..\..\..\lib\SP.Shared.Observability\SP.Shared.Observability.csproj" />
+  </ItemGroup>
+
+</Project>

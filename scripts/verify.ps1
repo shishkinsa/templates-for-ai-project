@@ -1,0 +1,25 @@
+$ErrorActionPreference = 'Stop'
+$root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
+
+Write-Host "=== Backend: build & test ===" -ForegroundColor Cyan
+$webProject = Join-Path $root 'src\webapi\cnt_sp_webapi\6 WebApp\SP.WebApi.WebApp.csproj'
+$testProject = Join-Path $root 'src\webapi\cnt_sp_webapi\7 Tests\SP.WebApi.Tests\SP.WebApi.Tests.csproj'
+
+dotnet test $testProject --verbosity minimal
+
+Write-Host "=== Frontend: lint & build ===" -ForegroundColor Cyan
+$frontendDir = Join-Path $root 'src\frontend\cnt_sp_web'
+Push-Location $frontendDir
+try {
+    if (-not (Test-Path 'node_modules')) {
+        npm install
+    }
+    npm run lint
+    if ($LASTEXITCODE -ne 0) { throw "Frontend lint failed" }
+    npm run build
+    if ($LASTEXITCODE -ne 0) { throw "Frontend build failed" }
+} finally {
+    Pop-Location
+}
+
+Write-Host "=== Verify OK ===" -ForegroundColor Green

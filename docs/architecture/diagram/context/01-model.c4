@@ -1,0 +1,44 @@
+// Связанные требования: FR-001
+// ADR: 0001, 0002, 0003
+
+specification {
+  element person
+  element softwareSystem
+  element container
+}
+
+model {
+  user = person 'Пользователь' {
+    description 'Оператор системы'
+  }
+
+  sampleProject = softwareSystem 'Sample Project' {
+    description 'TBD: краткое описание системы и её назначения'
+
+    cntSpWeb = container 'CNT_SP_Web' {
+      technology 'React, TypeScript, Vite, Ant Design'
+      description 'Web SPA: UI, вызовы REST API'
+    }
+
+    cntSpWebApi = container 'CNT_SP_WebAPI' {
+      technology 'ASP.NET Core, .NET 10'
+      description 'REST API: бизнес-логика, метаданные в PostgreSQL'
+    }
+
+    cntSpDb = container 'CNT_SP_DB' {
+      technology 'PostgreSQL'
+      description 'Транзакционные данные приложения'
+    }
+  }
+
+  user -> sampleProject.cntSpWeb 'Использует'
+  sampleProject.cntSpWeb -> sampleProject.cntSpWebApi 'REST /api/v1'
+  sampleProject.cntSpWebApi -> sampleProject.cntSpDb 'Читает и записывает'
+}
+
+views {
+  view context {
+    title 'Контекст Sample Project'
+    include user, sampleProject.*
+  }
+}

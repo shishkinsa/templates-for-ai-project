@@ -1,0 +1,33 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="docker-compose.monitoring.yml" />
+    <File Path="docker-compose.yml" />
+    <File Path="src/.editorconfig" />
+    <File Path="src/Directory.Build.props" />
+    <File Path="src/Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/src/lib/">
+    <Project Path="src/lib/SP.Shared.Observability/SP.Shared.Observability.csproj" />
+  </Folder>
+  <Folder Name="/src/webapi/cnt_sp_webapi/0 Utils/">
+    <Project Path="src/webapi/cnt_sp_webapi/0 Utils/SP.WebApi.Utils/SP.WebApi.Utils.csproj" />
+  </Folder>
+  <Folder Name="/src/webapi/cnt_sp_webapi/1 Entities/">
+    <Project Path="src/webapi/cnt_sp_webapi/1 Entities/SP.WebApi.Entities/SP.WebApi.Entities.csproj" />
+  </Folder>
+  <Folder Name="/src/webapi/cnt_sp_webapi/2 Infrastructure.Interfaces/">
+    <Project Path="src/webapi/cnt_sp_webapi/2 Infrastructure.Interfaces/SP.WebApi.Infrastructure.Interfaces/SP.WebApi.Infrastructure.Interfaces.csproj" />
+  </Folder>
+  <Folder Name="/src/webapi/cnt_sp_webapi/3 UseCases/">
+    <Project Path="src/webapi/cnt_sp_webapi/3 UseCases/SP.WebApi.UseCases/SP.WebApi.UseCases.csproj" />
+  </Folder>
+  <Folder Name="/src/webapi/cnt_sp_webapi/5 Infrastructure.Implementation/">
+    <Project Path="src/webapi/cnt_sp_webapi/5 Infrastructure.Implementation/SP.WebApi.DataAccess.Postgres/SP.WebApi.DataAccess.Postgres.csproj" />
+  </Folder>
+  <Folder Name="/src/webapi/cnt_sp_webapi/6 WebApp/">
+    <Project Path="src/webapi/cnt_sp_webapi/6 WebApp/SP.WebApi.WebApp.csproj" />
+  </Folder>
+  <Folder Name="/src/webapi/cnt_sp_webapi/7 Tests/">
+    <Project Path="src/webapi/cnt_sp_webapi/7 Tests/SP.WebApi.Tests/SP.WebApi.Tests.csproj" />
+  </Folder>
+</Solution>

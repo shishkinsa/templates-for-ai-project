@@ -1,0 +1,51 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: sp-postgres
+    environment:
+      POSTGRES_DB: cnt_sp_db
+      POSTGRES_USER: cnt_sp_db_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe_StrongPassword_123!}
+    ports:
+      - "5432:5432"
+    volumes:
+      - sp_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cnt_sp_db_user -d cnt_sp_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./src
+      dockerfile: ./webapi/cnt_sp_webapi/6 WebApp/Dockerfile
+    container_name: sp-backend
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=cnt_sp_db;Username=cnt_sp_db_user;Password=${POSTGRES_PASSWORD:-ChangeMe_StrongPassword_123!}"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://host.docker.internal:4317"
+    ports:
+      - "5025:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  frontend:
+    build:
+      context: ./src/frontend/cnt_sp_web
+      dockerfile: Dockerfile
+    container_name: sp-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  sp_pg_data:
+
+networks:
+  default:
+    name: sp_app_network

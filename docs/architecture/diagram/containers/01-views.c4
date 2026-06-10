@@ -1,0 +1,6 @@
+views {
+  view containers {
+    title 'Контейнеры Sample Project'
+    include sampleProject.*
+  }
+}

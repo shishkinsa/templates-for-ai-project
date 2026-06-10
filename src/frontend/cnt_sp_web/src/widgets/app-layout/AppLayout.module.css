@@ -1,0 +1,21 @@
+.rootLayout {
+  min-height: 100%;
+}
+
+.innerLayout {
+  min-height: 100vh;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+}
+
+.contentContainer {
+  padding: 0 16px 16px;
+  flex: 1;
+  overflow: auto;
+}

@@ -1,0 +1,16 @@
+---
+description: Frontend FSD — React, TypeScript, Ant Design
+globs:
+  - src/frontend/**/src/**/*
+alwaysApply: false
+---
+
+# Frontend (Feature-Sliced Design)
+
+Структура: [docs/architecture/specs/frontend/12-frontend-app-architecture.md](docs/architecture/specs/frontend/12-frontend-app-architecture.md).
+
+- Зависимости слоёв: `app → pages → widgets → features → entities → shared`
+- HTTP-вызовы: `entities/*/api` через `shared/api/http`
+- Страницы собирают widgets/features, не содержат прямых fetch
+- Именование: [docs/ts-naming-conventions.md](docs/ts-naming-conventions.md), [docs/react-naming-conventions.md](docs/react-naming-conventions.md)
+- TSDoc: [docs/coding-standards.md](docs/coding-standards.md) для `shared/api`, `entities/*/api`, экспортируемых компонентов

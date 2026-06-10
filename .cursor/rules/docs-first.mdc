@@ -1,0 +1,16 @@
+---
+description: Docs-first — требования, ADR, OpenAPI, диаграммы
+globs:
+  - docs/**/*
+alwaysApply: false
+---
+
+# Документация
+
+Порядок изменений: **требования → архитектура → код**.
+
+- Требования: [docs/requirements/template.md](docs/requirements/template.md)
+- ADR: [docs/architecture/adr/template.md](docs/architecture/adr/template.md)
+- REST-контракт: [docs/architecture/openapi/components/openapi.yaml](docs/architecture/openapi/components/openapi.yaml)
+- C4: LikeC4 в `docs/architecture/diagram/` + [docs/ai/project-context.md](docs/ai/project-context.md)
+- Не противоречь принятым ADR без нового ADR
