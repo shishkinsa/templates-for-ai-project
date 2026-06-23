@@ -17,9 +17,9 @@ cd my-project
 | Документ | Что заполнить |
 |----------|---------------|
 | [docs/process/context/containers.md](../context/containers.md) | Описание системы, идентификаторы домена |
-| [docs/requirements/business/goals.md](../requirements/business/goals.md) | Бизнес-цели |
-| [docs/README.md](../README.md) | Модель документации SPDF |
-| [openspec/project.md](../../openspec/project.md) | Purpose, domain context |
+| [docs/requirements/business/goals.md](../../requirements/business/goals.md) | Бизнес-цели |
+| [docs/README.md](../../README.md) | Модель документации SPDF |
+| [openspec/project.md](../../../openspec/project.md) | Purpose, domain context |
 | `.cursorrules` | `project.domain`, `repository` |
 
 ## 3. Архитектура (20 мин)

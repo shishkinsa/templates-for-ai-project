@@ -229,8 +229,8 @@ Closes #123"
 {если есть UI изменения}
 
 ## 📚 Связанные документы
-- [ADR-0012](../../architecture/adr/0012-payment-validation.md)
-- capability `payments` → `openspec/specs/payments/spec.md` (пример)
+- [ADR-0007 FluentValidation](../architecture/adr/0007-fluentvalidation.md)
+- capability `examples` → [openspec/specs/examples/spec.md](../../openspec/specs/examples/spec.md) (пример)
 ```
 
 ### Правила PR

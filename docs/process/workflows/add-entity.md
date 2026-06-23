@@ -19,7 +19,7 @@
 - [ ] Approve proposal перед кодом
 - [ ] После деплоя: `/opsx-archive` — merge в `openspec/specs/`
 
-Шаблон tasks для schema `full-stack`: [openspec/schemas/full-stack/templates/tasks.md](../../openspec/schemas/full-stack/templates/tasks.md)
+Шаблон tasks для schema `full-stack`: [openspec/schemas/full-stack/templates/tasks.md](../../../openspec/schemas/full-stack/templates/tasks.md)
 
 ## 1. Требования
 
