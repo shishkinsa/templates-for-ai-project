@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using SP.WebApi.DataAccess.Postgres.Data;
 using SP.WebApi.DataAccess.Postgres.Repositories;
 using SP.WebApi.Infrastructure.Interfaces.DataAccess;
@@ -16,6 +17,8 @@ namespace SP.WebApi.Tests.Integration;
 /// </summary>
 public sealed class WebApiFactory : WebApplicationFactory<Program>
 {
+    private readonly string _databaseName = $"WebApiTests_{Guid.NewGuid():N}";
+
     public WebApiFactory()
     {
         Environment.SetEnvironmentVariable("ConnectionStrings__DefaultConnection", string.Empty);
@@ -30,6 +33,7 @@ public sealed class WebApiFactory : WebApplicationFactory<Program>
             config.AddInMemoryCollection(new Dictionary<string, string?>
             {
                 ["ConnectionStrings:DefaultConnection"] = string.Empty,
+                ["Auth:Enabled"] = "false",
             });
         });
 
@@ -39,11 +43,24 @@ public sealed class WebApiFactory : WebApplicationFactory<Program>
             services.RemoveAll(typeof(AppDbContext));
             services.RemoveAll(typeof(IDbContext));
             services.RemoveAll(typeof(IExampleItemRepository));
+            services.RemoveAll(typeof(ICategoryRepository));
 
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase("WebApiTests"));
+                options.UseInMemoryDatabase(_databaseName));
             services.AddScoped<IDbContext>(sp => sp.GetRequiredService<AppDbContext>());
             services.AddScoped<IExampleItemRepository, ExampleItemRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         });
+    }
+
+    protected override IHost CreateHost(IHostBuilder builder)
+    {
+        var host = base.CreateHost(builder);
+
+        using var scope = host.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        DatabaseSeeder.SeedCategories(db);
+
+        return host;
     }
 }

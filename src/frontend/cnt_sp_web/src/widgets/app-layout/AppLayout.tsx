@@ -3,6 +3,7 @@ import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { useState, type ReactNode } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import { AuthStubBanner } from '@/shared/auth';
 import styles from './AppLayout.module.css';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -54,6 +55,7 @@ export function AppLayout() {
         >
           <Breadcrumb style={{ margin: '16px 0' }} items={[{ title: 'Sample Project' }]} />
           <div className={styles.contentContainer}>
+            <AuthStubBanner />
             <Outlet />
           </div>
         </Content>

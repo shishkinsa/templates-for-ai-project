@@ -22,6 +22,14 @@ $webProject = Join-Path $root 'src\webapi\cnt_sp_webapi\6 WebApp\SP.WebApi.WebAp
 $testProject = Join-Path $root 'src\webapi\cnt_sp_webapi\7 Tests\SP.WebApi.Tests\SP.WebApi.Tests.csproj'
 
 dotnet test $testProject --verbosity minimal
+if ($LASTEXITCODE -ne 0) { throw "Backend tests failed" }
+
+Write-Host "=== Manifest (SPDF index) ===" -ForegroundColor Cyan
+& (Join-Path $root 'scripts\check-manifest.ps1')
+if ($LASTEXITCODE -ne 0) { throw "Manifest check failed" }
+
+Write-Host "=== Spec coverage (examples API scenarios) ===" -ForegroundColor Cyan
+& (Join-Path $root 'scripts\check-spec-coverage.ps1')
 
 Write-Host "=== Frontend: lint & build ===" -ForegroundColor Cyan
 $frontendDir = Join-Path $root 'src\frontend\cnt_sp_web'
@@ -32,6 +40,8 @@ try {
     }
     npm run lint
     if ($LASTEXITCODE -ne 0) { throw "Frontend lint failed" }
+    npm run test
+    if ($LASTEXITCODE -ne 0) { throw "Frontend tests failed" }
     npm run build
     if ($LASTEXITCODE -ne 0) { throw "Frontend build failed" }
 } finally {

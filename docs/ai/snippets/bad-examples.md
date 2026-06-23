@@ -54,4 +54,4 @@ import { CreateExampleForm } from '@/features/example/create-item';
 
 ## Архитектура: новый контейнер без ADR
 
-Добавление Redis, брокера или Identity без ADR и обновления LikeC4 / `project-context.md`.
+Добавление Redis, брокера или Identity без ADR и обновления LikeC4 / `context/containers.md`.

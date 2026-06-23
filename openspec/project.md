@@ -4,13 +4,15 @@
 
 **Sample Project** — шаблон full stack для AI-assisted разработки. Демонстрирует сквозной сценарий: OpenSpec specs → OpenAPI → Clean Architecture backend → FSD frontend → PostgreSQL.
 
-Бизнес-цели: [docs/requirements/business/01-goals.md](../docs/requirements/business/01-goals.md)
+Бизнес-цели: [docs/requirements/business/goals.md](../docs/requirements/business/goals.md)
+
+SPDF: [docs/FRAMEWORK.md](../docs/FRAMEWORK.md) · [docs/manifest.yaml](../docs/manifest.yaml)
 
 ## Tech Stack
 
 | Слой | Технологии | Документ |
 |------|------------|----------|
-| Frontend | React, TypeScript, Vite, Ant Design, FSD | [docs/ai/tech-stack.md](../docs/ai/tech-stack.md) |
+| Frontend | React, TypeScript, Vite, Ant Design, FSD | [docs/FRAMEWORK.md](../docs/FRAMEWORK.md) |
 | Backend | ASP.NET Core, .NET 10, EF Core, Requestum, FluentValidation | [docs/architecture/specs/backend/11-backend-app-architecture.md](../docs/architecture/specs/backend/11-backend-app-architecture.md) |
 | Data | PostgreSQL | [docs/architecture/adr/0003-use-postgres.md](../docs/architecture/adr/0003-use-postgres.md) |
 | Observability | OpenTelemetry, Prometheus, Loki, Tempo, Grafana | [monitoring/README.md](../monitoring/README.md) |
@@ -28,7 +30,7 @@
 
 - **Backend**: Clean Architecture, CQRS через Requestum — см. [11-backend-app-architecture.md](../docs/architecture/specs/backend/11-backend-app-architecture.md)
 - **Frontend**: Feature-Sliced Design — см. [12-frontend-app-architecture.md](../docs/architecture/specs/frontend/12-frontend-app-architecture.md)
-- **C4 / контейнеры**: [docs/ai/project-context.md](../docs/ai/project-context.md), LikeC4 в `docs/architecture/diagram/`
+- **C4 / контейнеры**: [docs/ai/context/containers.md](../docs/ai/context/containers.md), LikeC4 в `docs/architecture/diagram/`
 - **Стратегические решения**: ADR в `docs/architecture/adr/` — не дублировать в capability specs
 
 ### Testing Strategy
@@ -44,7 +46,7 @@
 ## Domain Context
 
 - Контейнеры: `CNT_SP_Web` (SPA), `CNT_SP_WebAPI` (REST), `CNT_SP_DB` (PostgreSQL)
-- Идентификаторы домена: TBD в [project-context.md](../docs/ai/project-context.md)
+- Идентификаторы домена: TBD в [containers.md](../docs/ai/context/containers.md)
 - Эталонная сущность: `ExampleItem` — capability `examples`
 
 ## Important Constraints
@@ -64,16 +66,17 @@
 |----------|------------|
 | `openspec/specs/` | Канон поведения системы (WHAT) |
 | `docs/requirements/business/` | Бизнес-цели и user stories (WHY) |
-| `docs/requirements/non-functional/` | NFR: perf, security |
+| `docs/requirements/constraints/` | Ограничения: perf, security |
 | `docs/architecture/adr/` | Стратегические архитектурные решения |
 | `docs/architecture/openapi/` | REST-контракт (синхрон с capability API) |
 | `openspec/changes/` | Предложения изменений (delta specs) |
 
 ## Reference Implementation
 
-Сквозной пример `ExampleItem`:
+| Capability | Spec | Backend | Frontend | Tests |
+|------------|------|---------|----------|-------|
+| `examples` (CRUD) | [spec.md](specs/examples/spec.md) | `Handlers/Example/` | `entities/example`, `features/example/*` | `ExamplesEndpointTests`, validators |
+| `categories` (read-only) | [spec.md](specs/categories/spec.md) | `Handlers/Category/` | `entities/category` | `CategoriesEndpointTests` |
+| `auth` (skeleton) | [spec.md](specs/auth/spec.md) | `Authentication/*` | `shared/auth` | — |
 
-- Spec: [openspec/specs/examples/spec.md](specs/examples/spec.md)
-- Backend: `Handlers/Example/` → `ExamplesController.cs`
-- Frontend: `entities/example` → `features/example/create-item` → `pages/home`
-- Tests: `ExamplesEndpointTests`, `ExampleItemTests`
+Старт из шаблона: [docs/ai/workflows/bootstrap-project.md](../docs/ai/workflows/bootstrap-project.md)

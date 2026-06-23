@@ -1,4 +1,1 @@
-// Контейнер CNT_SP_WebAPI — детализация по мере роста (Clean Architecture components)
-
-// TBD: добавить components (WebApp, UseCases, Entities, DataAccess)
-// См. docs/architecture/specs/backend/11-backend-app-architecture.md
+// Контейнер CNT_SP_WebAPI — детализация компонентов: docs/architecture/diagram/components/cnt_sp_webapi/01-model.c4

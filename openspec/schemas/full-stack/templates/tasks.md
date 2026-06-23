@@ -2,7 +2,7 @@
 
 - [ ] 1.1 Delta specs validated (`npx openspec validate <change-id> --strict --no-interactive`)
 - [ ] 1.2 OpenAPI: docs/architecture/openapi/components/openapi.yaml
-- [ ] 1.3 Типы id согласованы с docs/ai/project-context.md
+- [ ] 1.3 Типы id согласованы с docs/ai/context/containers.md
 
 ## 2. Backend (Clean Architecture)
 

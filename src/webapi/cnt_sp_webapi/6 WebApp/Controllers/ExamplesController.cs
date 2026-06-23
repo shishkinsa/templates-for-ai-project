@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Requestum;
 using SP.WebApi.UseCases.Handlers.Example.Commands.CreateExample;
@@ -9,6 +10,7 @@ using SP.WebApi.UseCases.Handlers.Example.Queries.GetExampleById;
 using SP.WebApi.UseCases.Handlers.Example.Queries.GetExampleById.Responses;
 using SP.WebApi.UseCases.Handlers.Example.Queries.ListExamples;
 using SP.WebApi.UseCases.Handlers.Example.Queries.ListExamples.Responses;
+using SP.WebApi.WebApp.Authentication;
 
 namespace SP.WebApi.WebApp.Controllers;
 
@@ -44,8 +46,10 @@ public sealed class ExamplesController(IRequestum requestum) : ControllerBase
     /// Создаёт новый пример.
     /// </summary>
     [HttpPost]
+    [Authorize(Policy = AuthPolicies.AuthenticatedWhenEnabled)]
     [ProducesResponseType(typeof(CreateExampleResponse), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<CreateExampleResponse>> Create(
         [FromBody] CreateExampleRequest request,
         CancellationToken cancellationToken)

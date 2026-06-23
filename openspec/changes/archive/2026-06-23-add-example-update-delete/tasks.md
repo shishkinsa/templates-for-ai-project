@@ -23,7 +23,7 @@
 ## 4. Docs & Architecture
 
 - [x] 4.1 Матрица трассировки обновлена
-- [x] 4.2 Pilot doc: docs/ai/workflows/pilot-update-delete.md
+- [x] 4.2 Workflow doc: docs/ai/workflows/change-lifecycle.md
 
 ## 5. Verification
 

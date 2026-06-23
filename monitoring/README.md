@@ -34,7 +34,7 @@ $env:OTEL_EXPORTER_OTLP_ENDPOINT = "http://localhost:4317"
 dotnet run --project "src/webapi/cnt_sp_webapi/6 WebApp/SP.WebApi.WebApp.csproj"
 ```
 
-После нескольких запросов к API в Grafana: Explore → Tempo / Loki / Prometheus, фильтр по `service.name` = `SP.WebApi.WebApp`.
+После нескольких запросов к API в Grafana: дашборд **Sample Project API** (`sp-api-overview`) или Explore → Tempo / Loki / Prometheus, фильтр по `service.name` = `SP.WebApi.WebApp`.
 
 ## Файлы
 

@@ -1,3 +1,10 @@
+---
+capability: examples
+business: docs/requirements/business/capabilities.md#examples
+openapi: docs/architecture/openapi/components/openapi.yaml
+adr: ["0005", "0007", "0008"]
+---
+
 ## Purpose
 
 REST API и SPA для демонстрации сквозного сценария шаблона: полный CRUD примеров сущностей (create / list / get / update / delete).
@@ -23,7 +30,7 @@ The system SHALL allow clients to create example items via REST API.
 
 - **WHEN** a client sends POST /api/v1/examples with body `{"name":"Test"}`
 - **THEN** the response status is 201
-- **AND** the response body contains `id` and `name`
+- **AND** the response body `item` contains `id` and `name`
 
 #### Scenario: Validation error
 

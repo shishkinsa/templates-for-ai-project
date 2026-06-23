@@ -1,20 +1,14 @@
 # Документация для AI
 
-Каталог содержит контекст проекта и инструкции для Cursor / других AI-ассистентов.
+Контекст и процессы. **Входная точка:** [AGENTS.md](../../AGENTS.md) · [FRAMEWORK.md](../FRAMEWORK.md)
 
 | Файл | Назначение |
 |------|------------|
-| [../AGENTS.md](../../AGENTS.md) | Краткая входная точка для любого AI-агента |
-| [../../openspec/project.md](../../openspec/project.md) | Контекст проекта для OpenSpec (стек, соглашения) |
-| [../../openspec/AGENTS.md](../../openspec/AGENTS.md) | SDD-workflow: propose → apply → archive |
-| [project-context.md](project-context.md) | Узлы C4, границы контейнеров, идентификаторы домена |
-| [tech-stack.md](tech-stack.md) | Технологии и обоснование выбора (со ссылками на ADR) |
-| [cursor-rules.md](cursor-rules.md) | Детальные инструкции по работе с документацией |
-| [workflows/add-entity.md](workflows/add-entity.md) | Чеклист добавления новой сущности (OpenSpec + full stack) |
-| [workflows/pilot-update-delete.md](workflows/pilot-update-delete.md) | **Pilot:** update/delete через OpenSpec |
-| [snippets/good-examples.md](snippets/good-examples.md) | Примеры «хорошего» кода |
+| [context/containers.md](context/containers.md) | Узлы C4, границы контейнеров |
+| [workflows/change-lifecycle.md](workflows/change-lifecycle.md) | Lifecycle OpenSpec change |
+| [workflows/add-entity.md](workflows/add-entity.md) | Чеклист новой сущности (full stack) |
+| [workflows/bootstrap-project.md](workflows/bootstrap-project.md) | Чеклист старта из шаблона |
+| [snippets/good-examples.md](snippets/good-examples.md) | Эталонный код |
 | [snippets/bad-examples.md](snippets/bad-examples.md) | Антипаттерны |
 
-**Порядок обновления:** OpenSpec change → ADR → LikeC4 → OpenAPI → `project-context.md` / `tech-stack.md` → `.cursorrules` / `AGENTS.md` → archive.
-
-**Slash-команды Cursor:** `/opsx-propose`, `/opsx-apply`, `/opsx-archive`, `/opsx-explore`, `/opsx-sync`
+**Порядок обновления:** OpenSpec change → ADR → LikeC4 → OpenAPI → `context/containers.md` → `manifest.yaml` → archive.

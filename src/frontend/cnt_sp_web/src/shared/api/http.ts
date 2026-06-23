@@ -1,3 +1,5 @@
+import { getAuthToken } from '@/shared/auth/token';
+
 /**
  * Базовый HTTP-клиент для вызовов `/api`.
  *
@@ -6,9 +8,17 @@
  * @returns распарсенный JSON
  */
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  const headers = new Headers(init?.headers);
+  headers.set('Accept', 'application/json');
+
+  const token = getAuthToken();
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`);
+  }
+
   const response = await fetch(`/api${path}`, {
-    headers: { Accept: 'application/json', ...init?.headers },
     ...init,
+    headers,
   });
 
   if (!response.ok) {

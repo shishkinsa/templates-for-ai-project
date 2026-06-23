@@ -1,4 +1,4 @@
-/** DTO примера сущности из API. */
+/** DTO примера сущности из API. См. также `npm run generate:api` → shared/api/generated/openapi.d.ts */
 export type ExampleItem = {
   id: string;
   name: string;

@@ -14,7 +14,7 @@
 
 | Тип | Ссылка |
 |-----|--------|
-| **Требования** | [FR-001](../requirements/functional/01-authentication.md), [NFR-002](../requirements/non-functional/02-security.md) |
+| **Требования** | capability `examples` → [openspec/specs/examples/spec.md](../../../openspec/specs/examples/spec.md), [NFR-002](../../requirements/constraints/security.md) |
 | **Диаграммы** | [Контекстная диаграмма](../diagrams/01-c4-system-context.c4) |
 | **Документация** | [Wiki page](https://confluence.company.com/...) |
 

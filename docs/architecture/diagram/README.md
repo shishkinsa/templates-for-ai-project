@@ -72,12 +72,12 @@ npx likec4 preview docs/architecture/diagram
 В начале файла диаграммы указывайте:
 
 ```likec4
-// Связанные требования: FR-001
+// capability: examples
 // ADR: 0001, 0002, 0003
 ```
 
 При изменении контейнеров обновляйте:
 
 1. LikeC4-модели в этом каталоге
-2. `docs/ai/project-context.md`
+2. `docs/ai/context/containers.md`
 3. ADR при смене технологий

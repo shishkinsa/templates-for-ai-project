@@ -62,7 +62,7 @@ After deployment:
 | Behavior (WHAT) | `openspec/specs/` | Canonical requirements |
 | Changes (PROPOSED) | `openspec/changes/` | Delta specs + tasks |
 | Business (WHY) | `docs/requirements/business/` | Goals, user stories |
-| NFR | `docs/requirements/non-functional/` | Performance, security |
+| NFR | `docs/requirements/constraints/` | Performance, security |
 | Strategy | `docs/architecture/adr/` | Technology decisions |
 | REST contract | `docs/architecture/openapi/` | API paths/schemas |
 | C4 | `docs/architecture/diagram/` | Container boundaries |

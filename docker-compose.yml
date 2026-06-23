@@ -24,6 +24,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=cnt_sp_db;Username=cnt_sp_db_user;Password=${POSTGRES_PASSWORD:-ChangeMe_StrongPassword_123!}"
+      Database__AutoMigrate: "true"
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://host.docker.internal:4317"
     ports:
       - "5025:8080"

@@ -20,6 +20,7 @@ public static class DataAccessServiceCollectionExtensions
             options.UseNpgsql(connectionString));
         services.AddScoped<IDbContext>(sp => sp.GetRequiredService<AppDbContext>());
         services.AddScoped<IExampleItemRepository, ExampleItemRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         return services;
     }

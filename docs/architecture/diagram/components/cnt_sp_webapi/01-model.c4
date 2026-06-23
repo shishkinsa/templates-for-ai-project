@@ -1,0 +1,37 @@
+// Контейнер CNT_SP_WebAPI — компоненты Clean Architecture
+
+model {
+  component webApp 'WebApp' {
+    technology 'ASP.NET Core Controllers'
+    description 'REST endpoints, middleware, auth'
+  }
+
+  component useCases 'UseCases' {
+    technology 'Requestum CQRS'
+    description 'Commands, queries, validators, DTO'
+  }
+
+  component entities 'Entities' {
+    technology 'C# domain'
+    description 'Domain models and invariants'
+  }
+
+  component dataAccess 'DataAccess.Postgres' {
+    technology 'EF Core'
+    description 'Repositories, DbContext, migrations'
+  }
+
+  component infraInterfaces 'Infrastructure.Interfaces' {
+    technology 'C# interfaces'
+    description 'Repository contracts'
+  }
+}
+
+// Зависимости (направление внутрь)
+webApp -> useCases 'invokes'
+useCases -> entities 'uses'
+useCases -> infraInterfaces 'depends on'
+dataAccess -> entities 'maps'
+dataAccess -> infraInterfaces 'implements'
+
+// См. docs/architecture/specs/backend/11-backend-app-architecture.md

@@ -1,4 +1,4 @@
-// Связанные требования: FR-001
+// capability: examples, categories, auth
 // ADR: 0001, 0002, 0003
 
 specification {

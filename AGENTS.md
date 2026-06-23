@@ -1,68 +1,58 @@
 # Инструкции для AI-агентов
 
-**Sample Project** — шаблон full stack: React/TypeScript (FSD) + ASP.NET Core / .NET 10 (Clean Architecture) + PostgreSQL.
+**Sample Project** — шаблон full stack: React/TypeScript (FSD) + ASP.NET Core / .NET 10 + PostgreSQL.
+
+**Карта документации:** [docs/FRAMEWORK.md](docs/FRAMEWORK.md) · [docs/manifest.yaml](docs/manifest.yaml)
 
 <!-- OPENSPEC:START -->
 ## OpenSpec (изменения поведения)
 
-Для новых фич, breaking changes и архитектурных сдвигов используй **spec-driven workflow**:
-
 1. Прочитай [openspec/project.md](openspec/project.md) и [openspec/AGENTS.md](openspec/AGENTS.md)
 2. Создай change: `/opsx-propose <описание>` или `openspec new change "<id>"`
-3. Для full stack сущностей: schema `full-stack` — см. [openspec/schemas/full-stack/](openspec/schemas/full-stack/)
+3. Full stack: schema `full-stack` — [openspec/schemas/full-stack/](openspec/schemas/full-stack/)
 4. Валидируй: `npx openspec validate <change-id> --strict --no-interactive`
-5. Реализуй: `/opsx-apply` после approve proposal
-6. Архивируй: `/opsx-archive` — merge delta в `openspec/specs/`
+5. Реализуй: `/opsx-apply` после approve
+6. Архивируй: `/opsx-archive` → merge в `openspec/specs/`
 
-**Канон поведения:** `openspec/specs/<capability>/spec.md`  
-**Бизнес-цели:** `docs/requirements/business/`  
-**REST-контракт:** `docs/architecture/openapi/components/openapi.yaml`  
-**Стратегия:** ADR в `docs/architecture/adr/`
+**Канон поведения:** `openspec/specs/<capability>/spec.md`
 
 Keep this managed block so `openspec update` can refresh the instructions.
 <!-- OPENSPEC:END -->
 
-## Роль
+## Порядок работы
 
-Инженер по разработке системы. Соблюдай границы контейнеров C4. Не смешивай назначения узлов без обновления архитектуры.
-
-## Порядок работы (docs-first + OpenSpec)
-
-1. Определи слой: `frontend` / `backend` / `architecture` / `infra`
-2. Прочитай [docs/ai/project-context.md](docs/ai/project-context.md) и [openspec/project.md](openspec/project.md)
-3. Проверь capability specs: `npx openspec list --specs` и [docs/requirements/](docs/requirements/)
-4. Сверься с ADR в [docs/architecture/adr/](docs/architecture/adr/)
-5. **Новая фича:** OpenSpec change → OpenAPI/ADR → код → тесты → archive
-6. **Bugfix / typo:** правка без change proposal (если восстанавливает spec behavior)
+1. Слой: `frontend` / `backend` / `architecture` / `infra`
+2. [docs/manifest.yaml](docs/manifest.yaml) → нужные артефакты capability
+3. [docs/ai/context/containers.md](docs/ai/context/containers.md) + [openspec/project.md](openspec/project.md)
+4. ADR: [docs/architecture/adr/](docs/architecture/adr/)
+5. **Новая фича:** change → OpenAPI/ADR → код → тесты → archive → manifest
+6. **Bugfix:** без change, если восстанавливает spec
 
 ## Ключевые документы
 
 | Документ | Назначение |
 |----------|------------|
-| [openspec/project.md](openspec/project.md) | Контекст проекта для OpenSpec |
-| [openspec/AGENTS.md](openspec/AGENTS.md) | Детальный SDD-workflow |
-| [docs/ai/tech-stack.md](docs/ai/tech-stack.md) | Стек и ADR-ссылки |
-| [docs/ai/cursor-rules.md](docs/ai/cursor-rules.md) | Инструкции Cursor |
-| [docs/ai/workflows/add-entity.md](docs/ai/workflows/add-entity.md) | Чеклист новой сущности (full stack) |
-| [docs/ai/snippets/good-examples.md](docs/ai/snippets/good-examples.md) | Эталонный код |
-| [docs/ai/snippets/bad-examples.md](docs/ai/snippets/bad-examples.md) | Антипаттерны |
-| [docs/architecture/openapi/components/openapi.yaml](docs/architecture/openapi/components/openapi.yaml) | Канон REST |
+| [docs/FRAMEWORK.md](docs/FRAMEWORK.md) | Модель SPDF, слои, lifecycle |
+| [docs/manifest.yaml](docs/manifest.yaml) | Индекс capability и путей |
+| [openspec/AGENTS.md](openspec/AGENTS.md) | SDD-workflow |
+| [docs/ai/workflows/add-entity.md](docs/ai/workflows/add-entity.md) | Новая сущность |
+| [docs/ai/workflows/change-lifecycle.md](docs/ai/workflows/change-lifecycle.md) | Lifecycle change |
+| [docs/architecture/openapi/components/openapi.yaml](docs/architecture/openapi/components/openapi.yaml) | REST |
 
-## Эталонная фича
+## Эталонные capability
 
-Сквозной пример `ExampleItem` — capability `examples`:
-
-- Spec: [openspec/specs/examples/spec.md](openspec/specs/examples/spec.md)
-- Backend: `Handlers/Example/` → `ExamplesController.cs`
-- Frontend: `entities/example` → `features/example/create-item` → `pages/home`
-- Тесты: `SP.WebApi.Tests/Integration/ExamplesEndpointTests.cs`
+| ID | Spec | Код |
+|----|------|-----|
+| `examples` | [spec.md](openspec/specs/examples/spec.md) | `Handlers/Example/`, `entities/example` |
+| `categories` | [spec.md](openspec/specs/categories/spec.md) | `Handlers/Category/`, `entities/category` |
+| `auth` | [spec.md](openspec/specs/auth/spec.md) | `Authentication/*`, `shared/auth` |
 
 ## Правила
 
-- Не меняй публичный API без синхронного обновления OpenAPI и delta specs
+- API ↔ OpenAPI ↔ spec синхронно
 - Не добавляй зависимости без необходимости
-- Новые UseCases сопровождай тестами
-- Язык коммуникации: русский
+- UseCases + критичная логика — с тестами
+- Язык: русский
 
 ## Проверка
 
@@ -70,4 +60,4 @@ Keep this managed block so `openspec update` can refresh the instructions.
 .\scripts\verify.ps1
 ```
 
-Slash-команды Cursor: `/opsx-propose`, `/opsx-apply`, `/opsx-archive`, `/opsx-explore`, `/opsx-sync`
+Slash-команды: `/opsx-propose`, `/opsx-apply`, `/opsx-archive`, `/opsx-explore`, `/opsx-sync`

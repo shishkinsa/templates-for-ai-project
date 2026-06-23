@@ -2,7 +2,7 @@ schema: spec-driven
 
 context: |
   Sample Project — full stack шаблон: React/TypeScript (FSD) + ASP.NET Core / .NET 10 (Clean Architecture) + PostgreSQL.
-  Подробности: openspec/project.md, docs/ai/project-context.md, docs/ai/tech-stack.md.
+  Подробности: openspec/project.md, docs/FRAMEWORK.md, docs/manifest.yaml.
   Язык коммуникации: русский.
   Для новых сущностей и full stack фич используй schema `full-stack`: openspec/schemas/full-stack/.
 

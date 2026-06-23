@@ -15,5 +15,6 @@ alwaysApply: false
 - Бизнес: [docs/requirements/business/](docs/requirements/business/)
 - ADR: [docs/architecture/adr/template.md](docs/architecture/adr/template.md)
 - REST-контракт: [docs/architecture/openapi/components/openapi.yaml](docs/architecture/openapi/components/openapi.yaml)
-- C4: LikeC4 в `docs/architecture/diagram/` + [docs/ai/project-context.md](docs/ai/project-context.md)
+- C4: LikeC4 в `docs/architecture/diagram/` + [docs/ai/context/containers.md](docs/ai/context/containers.md)
+- SPDF: [docs/FRAMEWORK.md](docs/FRAMEWORK.md), [docs/manifest.yaml](docs/manifest.yaml)
 - Не противоречь принятым ADR без нового ADR

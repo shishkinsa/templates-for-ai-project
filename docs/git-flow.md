@@ -230,7 +230,7 @@ Closes #123"
 
 ## 📚 Связанные документы
 - [ADR-0012](../architecture/adr/0012-payment-validation.md)
-- [Требование FR-005](../requirements/functional/05-payments.md)
+- capability `payments` → `openspec/specs/payments/spec.md` (пример)
 ```
 
 ### Правила PR

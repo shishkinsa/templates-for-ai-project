@@ -1,7 +1,10 @@
+using Microsoft.EntityFrameworkCore;
 using SP.Shared.Observability.Extensions;
+using SP.WebApi.DataAccess.Postgres.Data;
 using SP.WebApi.DataAccess.Postgres.DependencyInjection;
 using SP.WebApi.UseCases.Handlers.Example.Commands.CreateExample;
 using SP.WebApi.UseCases.Handlers.Example.Commands.CreateExample.Validators;
+using SP.WebApi.WebApp.Authentication;
 using SP.WebApi.WebApp.ExceptionHandlers;
 using FluentValidation;
 using Requestum;
@@ -15,7 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ApiExceptionHandler>();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHealthChecks();
+
+builder.Services.AddSpAuthentication(builder.Configuration, builder.Environment);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 if (!string.IsNullOrWhiteSpace(connectionString))
@@ -37,6 +41,15 @@ builder.Services.AddSpObservability(
 
 var app = builder.Build();
 
+if (builder.Configuration.GetValue<bool>("Database:AutoMigrate")
+    && !string.IsNullOrWhiteSpace(connectionString))
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+    DatabaseSeeder.SeedCategories(db);
+}
+
 app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
@@ -46,8 +59,16 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+var authEnabled = builder.Configuration.GetValue<bool>("Auth:Enabled");
+if (authEnabled)
+{
+    app.UseAuthentication();
+}
+
+app.UseAuthorization();
+
 app.MapControllers();
-app.MapHealthChecks("/health");
 
 app.Run();
 

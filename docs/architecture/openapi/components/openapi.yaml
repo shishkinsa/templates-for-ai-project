@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Sample Project API
-  version: 0.3.0
+  version: 0.4.0
   description: Канонический REST-контракт. Обновляйте синхронно с кодом WebAPI и клиента.
 
 servers:
@@ -53,6 +53,21 @@ paths:
                 $ref: '#/components/schemas/CreateExampleResponse'
         '400':
           description: Ошибка валидации
+        '401':
+          description: Требуется аутентификация (при Auth:Enabled)
+
+  /categories:
+    get:
+      operationId: listCategories
+      summary: Список справочных категорий (read-only)
+      tags: [Categories]
+      responses:
+        '200':
+          description: Список категорий
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCategoriesResponse'
 
   /examples/{id}:
     get:
@@ -192,3 +207,26 @@ components:
       properties:
         item:
           $ref: '#/components/schemas/ExampleItemDto'
+
+    CategoryDto:
+      type: object
+      required: [id, code, name]
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          maxLength: 64
+        name:
+          type: string
+          maxLength: 256
+
+    ListCategoriesResponse:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryDto'

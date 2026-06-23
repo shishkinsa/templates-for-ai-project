@@ -98,23 +98,32 @@ psql -U postgres -f scripts/create-cnt-db.sql
 
 | Область | Содержимое |
 |---------|------------|
-| Документация | ADR, FR/NFR-эталоны, OpenAPI, схема БД `example_items` |
-| Backend | CQRS (Requestum): create/list/get `ExampleItem`, `ApiExceptionHandler`, EF миграция |
-| Frontend | FSD: `entities/example`, `features/example/create-item`, таблица на главной |
-| Тесты | Unit (домен) + integration (`WebApplicationFactory`, InMemory БД) |
-| AI | `AGENTS.md`, OpenSpec (`openspec/`), `.cursorrules`, `docs/ai/*`, slash-команды `/opsx-*` |
-| Observability | OTEL Collector, Prometheus, Loki, Tempo, Grafana (`monitoring/`) |
-| DevOps | `docker-compose.yml`, `docker-compose.monitoring.yml`, CI (`.github/workflows/ci.yml`), `verify.ps1`, `ef-migrate.ps1`, `init-project.ps1` |
-| Диаграммы | Минимальная LikeC4-модель (`docs/architecture/diagram/context/`) |
+| Документация | ADR (0001–0008), FR/NFR-эталоны, OpenAPI v0.4, схема БД |
+| Backend | CQRS (Requestum): CRUD `ExampleItem`, read-only `Category`, auth skeleton |
+| Frontend | FSD: `entities/{example,category}`, `features/example/*`, vitest |
+| Тесты | Unit (домен, validators) + integration (CRUD, 400/404, categories) |
+| OpenSpec | Capabilities: `examples`, `categories`, `auth` |
+| AI | `AGENTS.md`, skills `/opsx-*`, [bootstrap-project.md](docs/ai/workflows/bootstrap-project.md) |
+| Observability | OTEL → Prometheus/Loki/Tempo, Grafana dashboard API |
+| DevOps | CI + CD (`.github/workflows/`), Dependabot, `verify.ps1`, auto-migrate в Docker |
+| Диаграммы | LikeC4: context, containers, components WebAPI |
 
-### Эталонная фича `ExampleItem` (сквозной пример)
+### Эталонные capability
+
+| Capability | Тип | Путь |
+|------------|-----|------|
+| `examples` | CRUD | [openspec/specs/examples/spec.md](openspec/specs/examples/spec.md) |
+| `categories` | read-only | [openspec/specs/categories/spec.md](openspec/specs/categories/spec.md) |
+| `auth` | skeleton | [openspec/specs/auth/spec.md](openspec/specs/auth/spec.md) |
+
+### ExampleItem (сквозной CRUD)
 
 | Слой | Путь |
 |------|------|
 | OpenAPI | `docs/architecture/openapi/components/openapi.yaml` |
-| UseCases | `Handlers/Example/` (Command + Queries) |
+| UseCases | `Handlers/Example/` |
 | API | `Controllers/ExamplesController.cs` |
-| UI | `entities/example` → `features/example/create-item` → `pages/home` |
+| UI | `entities/example` → `features/example/*` → `pages/home` |
 
 ## Проверка перед коммитом
 
@@ -128,10 +137,10 @@ psql -U postgres -f scripts/create-cnt-db.sql
 
 | Область | Статус |
 |---------|--------|
-| Аутентификация / Identity | Нет |
-| Grafana dashboards (готовые панели) | Только datasources; дашборды — по необходимости |
-| Update/Delete для `ExampleItem` | Реализовано (OpenSpec pilot) — см. [pilot-update-delete.md](docs/ai/workflows/pilot-update-delete.md) |
-| OpenAPI → TypeScript codegen | Типы вручную в `entities/*/model` |
+| Полноценная аутентификация (OIDC/IdP) | Только skeleton (`Auth:Enabled`, DevBearer) |
+| E2E / Playwright | Нет |
+| OpenAPI → TypeScript codegen в CI | Скрипт `npm run generate:api` (ручной запуск) |
+| Production deploy | CD workflow — шаблон сборки образов |
 
 ---
 
@@ -189,9 +198,9 @@ src/frontend/cnt_{prefix}_web/src/
 3. **Архитектура** → ADR + LikeC4 + OpenAPI (синхронно с delta)
 4. **Код** → `src/` по `tasks.md`
 5. **Archive** → `/opsx-archive` — merge в `openspec/specs/`
-6. **AI-контекст** → `openspec/project.md`, `docs/ai/project-context.md`
+6. **AI-контекст** → `docs/FRAMEWORK.md`, `docs/manifest.yaml`, `openspec/project.md`
 
-Подробнее: [openspec/AGENTS.md](openspec/AGENTS.md), [docs/ai/workflows/add-entity.md](docs/ai/workflows/add-entity.md), [pilot update/delete](docs/ai/workflows/pilot-update-delete.md)
+Подробнее: [openspec/AGENTS.md](openspec/AGENTS.md), [docs/ai/workflows/add-entity.md](docs/ai/workflows/add-entity.md), [bootstrap проекта](docs/ai/workflows/bootstrap-project.md)
 
 ### OpenSpec CLI
 
@@ -209,8 +218,8 @@ Slash-команды Cursor (после restart IDE): `/opsx-propose`, `/opsx-ap
 
 - [ ] Запустить `scripts/init-project.ps1`
 - [ ] `npm install` — OpenSpec CLI
-- [ ] Заполнить `openspec/project.md`, `docs/ai/project-context.md`, `docs/ai/tech-stack.md`
-- [ ] Заполнить `docs/architecture/01-calc-architecture.md`
+- [ ] Заполнить `openspec/project.md`, `docs/ai/context/containers.md`, `docs/requirements/business/goals.md`
+- [ ] Заполнить `docs/architecture/capacity.md`
 - [ ] Добавить бизнес-требования в `docs/requirements/business/`
 - [ ] Принять ключевые ADR в `docs/architecture/adr/`
 - [ ] Обновить OpenAPI в `docs/architecture/openapi/components/`

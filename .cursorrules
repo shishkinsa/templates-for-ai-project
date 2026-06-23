@@ -1,122 +1,73 @@
 # Sample Project — правила Cursor для AI
 
 # ============================================
-# 1. РОЛЬ, ДОМЕН И СТЕК (см. docs/ai/project-context.md)
+# 1. ВХОДНАЯ ТОЧКА (SPDF)
 # ============================================
-role: >-
-  Инженер по разработке и сопровождению системы Sample Project:
-  веб-клиент (React/TypeScript), backend (ASP.NET Core), PostgreSQL.
-  Учитывай границы контейнеров C4 и не смешивай назначения узлов без обновления архитектуры.
+framework: "docs/FRAMEWORK.md"
+manifest: "docs/manifest.yaml"
+agent_entry: "AGENTS.md"
 
-expertise:
-  languages: [C#, TypeScript]
-  frontend: [React, Ant Design, Vite]
-  backend: [ASP.NET Core, .NET 10, EF Core, Requestum]
-  data: [PostgreSQL]
-  placeholders:
-    - "TBD: дополнительные технологии по мере принятия ADR"
+role: >-
+  Инженер по разработке системы Sample Project:
+  React/TypeScript, ASP.NET Core, PostgreSQL.
+  Границы контейнеров C4 — не смешивать без обновления архитектуры.
 
 stack:
   summary: >-
     Клиент: React + TypeScript (CNT_SP_Web).
     API: ASP.NET Core / .NET 10 (WebAPI).
     Данные: PostgreSQL.
-  source_of_truth: "docs/ai/project-context.md"
-  tech_stack_detail: "docs/ai/tech-stack.md"
+  adr_index: "docs/FRAMEWORK.md#стек-индекс-adr"
+  containers: "docs/ai/context/containers.md"
 
 project:
   name: "Sample Project"
   domain: "TBD: описать предметную область"
-  repository: ""
   version: "0.1.0"
 
 # ============================================
-# 2. ДОКУМЕНТАЦИЯ И ADR
+# 2. ДОКУМЕНТАЦИЯ
 # ============================================
 documentation:
-  openspec:
-    project: "openspec/project.md"
-    agents: "openspec/AGENTS.md"
-    specs: "openspec/specs/"
-    changes: "openspec/changes/"
-    schema_full_stack: "openspec/schemas/full-stack/"
-  project_context: "docs/ai/project-context.md"
-  tech_stack: "docs/ai/tech-stack.md"
-  cursor_instructions: "docs/ai/cursor-rules.md"
-  architecture_readme: "docs/architecture/README.md"
-  naming_conventions: "docs/c-charp-naming-conventions.md"
+  behavior: "openspec/specs/"
+  changes: "openspec/changes/"
+  business: "docs/requirements/business/"
+  constraints: "docs/requirements/constraints/"
+  architecture: "docs/architecture/"
+  openapi: "docs/architecture/openapi/components/openapi.yaml"
+  adr: "docs/architecture/adr/"
+  diagrams: "docs/architecture/diagram/"
+  workflows: "docs/ai/workflows/"
   coding_standards: "docs/coding-standards.md"
-  business_requirements: "docs/requirements/business/"
-  functional_reqs: "docs/requirements/functional/"
-  non_functional_reqs: "docs/requirements/non-functional/"
-
-  adr:
-    directory: "docs/architecture/adr/"
-    template: "docs/architecture/adr/template.md"
-    key_decisions:
-      - "docs/architecture/adr/0001-dotnet-aspnet-core-backend.md"
-      - "docs/architecture/adr/0002-react-typescript-frontend.md"
-      - "docs/architecture/adr/0003-use-postgres.md"
-
-  openapi:
-    canonical_spec: "docs/architecture/openapi/components/openapi.yaml"
-    status: "Канон REST — openapi.yaml; изменения контракта только вместе с кодом клиента/сервера"
-
-  diagrams:
-    context: "docs/architecture/diagram/context/"
-    containers: "docs/architecture/diagram/containers/"
-    components: "docs/architecture/diagram/components/"
-    data: "docs/architecture/diagram/data/"
-    behavior: "docs/architecture/diagram/behavior/"
-    infrastructure: "docs/architecture/diagram/infrastructure/"
-    security: "docs/architecture/diagram/security/"
-    integration: "docs/architecture/diagram/integration/"
 
 # ============================================
 # 3. ПОРЯДОК РАБОТЫ
 # ============================================
 workflow:
   before_any_task:
-    - "Определи слой: frontend / backend / архитектура / инфраструктура."
-    - "Прочитай docs/ai/project-context.md, openspec/project.md и при смене стека — docs/ai/tech-stack.md."
-    - "Проверь openspec/specs/ и активные changes (npx openspec list)."
-    - "Проверь релевантные требования в docs/requirements/business/ и NFR."
-    - "Для архитектурных решений сверься с docs/architecture/adr/."
-    - "Не противоречь принятым ADR без явного нового ADR."
-
+    - "Определи слой: frontend / backend / architecture / infra."
+    - "Прочитай docs/manifest.yaml и openspec/project.md."
+    - "Поведение — openspec/specs/; бизнес — requirements/business/; ограничения — requirements/constraints/."
+    - "ADR и LikeC4 перед сменой архитектуры."
   change_order:
-    - "OpenSpec change (delta specs) → архитектура (ADR, OpenAPI, LikeC4) → код → archive → docs."
-
-  openspec:
-    project: "openspec/project.md"
-    agents: "openspec/AGENTS.md"
-    specs: "openspec/specs/"
-    changes: "openspec/changes/"
-    schema_full_stack: "openspec/schemas/full-stack/"
-    cli: "npx openspec"
+    - "OpenSpec change → OpenAPI/ADR/LikeC4 → код → verify.ps1 → archive → manifest.yaml."
 
 # ============================================
 # 4. ПУБЛИЧНЫЕ КОНТРАКТЫ
 # ============================================
 public_contracts:
   rules:
-    - "Не меняй публичные контракты API без синхронного обновления docs/architecture/openapi/components/openapi.yaml."
-    - "Breaking changes REST — только с согласованным обновлением клиента и сервера."
+    - "API меняется только вместе с openapi.yaml и openspec specs."
+    - "Breaking changes — согласованное обновление клиента и сервера."
 
 # ============================================
-# 5. ПРАВИЛА ПОВЕДЕНИЯ
+# 5. ПРАВИЛА
 # ============================================
 rules:
-  - "Следуй docs/ai/cursor-rules.md и стандартам в docs/ (см. docs/README.md)."
-  - "Соблюдай именование из docs/*-naming-conventions.md."
-  - "Перед изменением архитектуры проверь ADR и модели LikeC4."
-  - "Перед реализацией фич — OpenSpec change + соответствие openspec/specs/."
-  - "Используй существующие паттерны; не добавляй зависимости без необходимости."
-  - "Новый код сопровождай тестами для UseCases и критичной логики."
+  - "Следуй docs/FRAMEWORK.md и docs/coding-standards.md."
+  - "OpenSpec change для нового поведения; bugfix без change если восстанавливает spec."
+  - "Новый код — тесты для UseCases и критичной логики."
 
-# ============================================
-# 6. КОММУНИКАЦИЯ
-# ============================================
 communication:
   language: "ru"
   style: "professional, ясно, по делу"

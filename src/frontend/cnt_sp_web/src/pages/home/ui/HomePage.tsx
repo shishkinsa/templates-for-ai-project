@@ -8,6 +8,11 @@ import {
   updateExample,
   type ExampleItem,
 } from '@/entities/example';
+import {
+  CategoryTable,
+  fetchCategories,
+  type Category,
+} from '@/entities/category';
 import { CreateExampleForm } from '@/features/example/create-item';
 import { DeleteExampleButton } from '@/features/example/delete-item';
 import { EditExampleModal } from '@/features/example/edit-item';
@@ -22,7 +27,9 @@ export function HomePage() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [healthError, setHealthError] = useState<string | null>(null);
   const [items, setItems] = useState<ExampleItem[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [listError, setListError] = useState<string | null>(null);
   const [editingItem, setEditingItem] = useState<ExampleItem | null>(null);
 
@@ -45,6 +52,24 @@ export function HomePage() {
       .catch((err: unknown) => {
         setHealthError(err instanceof Error ? err.message : 'Unknown error');
       });
+  }, []);
+
+  useEffect(() => {
+    let active = true;
+    fetchCategories()
+      .then((response) => {
+        if (active) {
+          setCategories(response.items);
+        }
+      })
+      .finally(() => {
+        if (active) {
+          setCategoriesLoading(false);
+        }
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -99,6 +124,10 @@ export function HomePage() {
       {healthError && (
         <Typography.Paragraph type="danger">Backend недоступен: {healthError}</Typography.Paragraph>
       )}
+      <Typography.Title level={5} style={{ marginTop: 24 }}>
+        Категории (read-only)
+      </Typography.Title>
+      <CategoryTable items={categories} loading={categoriesLoading} />
       <Typography.Title level={5} style={{ marginTop: 24 }}>
         Примеры
       </Typography.Title>

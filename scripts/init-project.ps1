@@ -116,7 +116,7 @@ if (Test-Path $sln) {
 }
 
 Write-Host "Done. Next steps:" -ForegroundColor Green
-Write-Host "  1. Update docs/ai/project-context.md"
+Write-Host "  1. Update docs/ai/context/containers.md and docs/requirements/business/goals.md"
 Write-Host "  2. psql -U postgres -f scripts/create-cnt-db.sql"
 Write-Host "  3. dotnet run --project `"src/webapi/$newContainer`_webapi/6 WebApp/$ProjectPrefix.WebApi.WebApp.csproj`""
 Write-Host "  4. cd src/frontend/$newContainer`_web && npm install && npm run dev"

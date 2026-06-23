@@ -1,6 +1,15 @@
 # Workflow: добавление новой сущности
 
-Чеклист для AI и разработчика. Эталон — capability `examples` / `ExampleItem`.
+Чеклист для AI и разработчика.
+
+**Эталоны capability:**
+
+| Тип | Capability | Код |
+|-----|------------|-----|
+| CRUD (write) | `examples` / `ExampleItem` | [design.md](../../../openspec/specs/examples/design.md) |
+| Read-only справочник | `categories` / `Category` | [design.md](../../../openspec/specs/categories/design.md) |
+
+Для read-only сущности пропустите шаги Command/Validator/features и оставьте Query + List endpoint.
 
 ## 0. OpenSpec change (обязательно для новых сущностей)
 
@@ -15,13 +24,13 @@
 ## 1. Требования
 
 - [ ] Delta spec в OpenSpec change (не отдельный FR для поведения)
-- [ ] Бизнес-контекст в [docs/requirements/business/](../../requirements/business/) при необходимости
-- [ ] Обновить матрицу трассировки в [docs/requirements/README.md](../../requirements/README.md)
+- [ ] Бизнес-контекст в [capabilities.md](../../requirements/business/capabilities.md) при необходимости
+- [ ] Обновить [docs/manifest.yaml](../../manifest.yaml) при новой capability
 
 ## 2. Контракт
 
 - [ ] Добавить paths/schemas в [docs/architecture/openapi/components/openapi.yaml](../../architecture/openapi/components/openapi.yaml)
-- [ ] Согласовать типы id (UUID / int / code) с [docs/ai/project-context.md](../project-context.md)
+- [ ] Согласовать типы id (UUID / int / code) с [context/containers.md](../context/containers.md)
 
 ## 3. Backend
 
@@ -31,11 +40,11 @@
 - [ ] `3 UseCases` — Command/Query + Handler + Validator + Dto + Mappings
 - [ ] `6 WebApp` — Controller (тонкий, Requestum)
 - [ ] Миграция EF: `.\scripts\ef-migrate.ps1 -Action add -MigrationName Add{Name}`
-- [ ] Unit-тест handler + integration test endpoint
+- [ ] Integration test endpoint + `openspec/specs/{capability}/scenario-coverage.txt`
 
 ## 4. Frontend (FSD)
 
-- [ ] `entities/{name}/model/types.ts` — типы из OpenAPI
+- [ ] `entities/{name}/model/types.ts` — типы из OpenAPI (или `npm run generate:api`)
 - [ ] `entities/{name}/api/` — функции API
 - [ ] `entities/{name}/ui/` — таблица / карточка
 - [ ] `features/{name}/` — сценарии (create, edit, …)
