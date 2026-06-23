@@ -2,16 +2,21 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
 $requiredPaths = @(
-    'docs\FRAMEWORK.md',
-    'docs\manifest.yaml',
+    'docs\README.md',
+    'manifest.yaml',
+    'docs\README.md',
     'docs\requirements\index.yaml',
     'docs\requirements\business\goals.md',
     'docs\requirements\business\capabilities.md',
     'docs\requirements\constraints\performance.md',
     'docs\requirements\constraints\security.md',
-    'docs\ai\context\containers.md',
-    'docs\architecture\capacity.md',
+    'docs\process\context\containers.md',
+    'docs\architecture\planning\capacity.md',
     'docs\architecture\specs\assemblies.md',
+    'docs\architecture\specs\backend.md',
+    'docs\architecture\specs\frontend.md',
+    'docs\standards\coding-standards.md',
+    'docs\standards\git-flow.md',
     'openspec\specs\examples\spec.md',
     'openspec\specs\categories\spec.md',
     'openspec\specs\auth\spec.md',
@@ -32,8 +37,7 @@ if ($missing.Count -gt 0) {
     exit 1
 }
 
-# Capability keys in manifest must match openspec/specs folders
-$manifestContent = Get-Content (Join-Path $root 'docs\manifest.yaml') -Raw
+$manifestContent = Get-Content (Join-Path $root 'manifest.yaml') -Raw
 $specDirs = Get-ChildItem (Join-Path $root 'openspec\specs') -Directory | ForEach-Object { $_.Name }
 foreach ($cap in $specDirs) {
     if ($manifestContent -notmatch "(?m)^\s+$cap\s*:") {

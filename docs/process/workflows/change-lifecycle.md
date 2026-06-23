@@ -20,7 +20,7 @@
 6. npx openspec validate <id> --strict --no-interactive
 7. .\scripts\verify.ps1
 8. /opsx-archive — merge в openspec/specs/
-9. Обновить docs/manifest.yaml (новая capability)
+9. Обновить manifest.yaml (новая capability)
 ```
 
 ## Слои SPDF при change
@@ -32,4 +32,4 @@
 | structure | OpenAPI, ADR, LikeC4, `design.md` |
 | process | `manifest.yaml` |
 
-См. [FRAMEWORK.md](../../FRAMEWORK.md), [add-entity.md](add-entity.md), [openspec/AGENTS.md](../../../openspec/AGENTS.md).
+См. [README.md](../../README.md), [add-entity.md](add-entity.md), [AGENTS.md](../../../AGENTS.md).

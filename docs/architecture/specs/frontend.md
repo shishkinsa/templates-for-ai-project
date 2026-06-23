@@ -1,8 +1,8 @@
 # Требования к архитектуре приложения frontend
 
-Документ задаёт **целевой** эталон организации веб-клиента проекта и соглашения по стеку, маршрутизации и работе с API. Нумерация и связь с общими правилами именования сборок сервисов — в [assemblies.md](../assemblies.md). Слои и зависимости backend-сервисов описаны в [11-backend-app-architecture.md](../backend/11-backend-app-architecture.md) (отдельно от клиента). Текущая реализация в репозитории (проект `cnt_sp_web`) может отставать от этой спеки: структура ниже описывает направление развития, а не обязательное совпадение с деревом файлов в каждом коммите.
+Документ задаёт **целевой** эталон организации веб-клиента проекта и соглашения по стеку, маршрутизации и работе с API. Нумерация и связь с общими правилами именования сборок сервисов — в [assemblies.md](../assemblies.md). Слои и зависимости backend-сервисов описаны в [backend.md](backend.md) (отдельно от клиента). Текущая реализация в репозитории (проект `cnt_sp_web`) может отставать от этой спеки: структура ниже описывает направление развития, а не обязательное совпадение с деревом файлов в каждом коммите.
 
-Приложение: SPA **`cnt_sp_web`** в каталоге [src/frontend/cnt_sp_web](../../../../src/frontend/cnt_sp_web).
+Приложение: SPA **`cnt_sp_web`** в каталоге [src/frontend/cnt_sp_web](../../../src/frontend/cnt_sp_web).
 
 ---
 
@@ -16,19 +16,19 @@
 | **Ant Design** | компонентная библиотека, тема через `ConfigProvider` |
 | **React Router** | маршрутизация на клиенте |
 
-**Точка входа:** [app/main.tsx](../../../../src/frontend/cnt_sp_web/src/app/main.tsx) — монтирование в `#root`, обёртка `StrictMode`, импорт глобальных стилей; провайдеры и локаль Ant — в слое `app` (например [providers.tsx](../../../../src/frontend/cnt_sp_web/src/app/providers.tsx): `ConfigProvider` + `locale`, например `ru_RU`, и обёртка `App` из `antd` для контекста `message` / `notification`).
+**Точка входа:** [app/main.tsx](../../../src/frontend/cnt_sp_web/src/app/main.tsx) — монтирование в `#root`, обёртка `StrictMode`, импорт глобальных стилей; провайдеры и локаль Ant — в слое `app` (например [providers.tsx](../../../src/frontend/cnt_sp_web/src/app/providers.tsx): `ConfigProvider` + `locale`, например `ru_RU`, и обёртка `App` из `antd` для контекста `message` / `notification`).
 
-**Маршрутизация:** корневой роутер и дерево `Route` — в [app/router.tsx](../../../../src/frontend/cnt_sp_web/src/app/router.tsx). Оболочка приложения (layout, боковое меню, область контента) — виджет слоя `widgets` (например [widgets/app-layout](../../../../src/frontend/cnt_sp_web/src/widgets/app-layout)); контент вложенных маршрутов — `Outlet`. Индексный маршрут `/` может перенаправлять на основной раздел приложения (`Navigate`).
+**Маршрутизация:** корневой роутер и дерево `Route` — в [app/router.tsx](../../../src/frontend/cnt_sp_web/src/app/router.tsx). Оболочка приложения (layout, боковое меню, область контента) — виджет слоя `widgets` (например [widgets/app-layout](../../../src/frontend/cnt_sp_web/src/widgets/app-layout)); контент вложенных маршрутов — `Outlet`. Индексный маршрут `/` может перенаправлять на основной раздел приложения (`Navigate`).
 
-**Тема:** централизованно в [shared/config/theme.ts](../../../../src/frontend/cnt_sp_web/src/shared/config/theme.ts); кастомизация токенов Ant — только через этот слой и `ConfigProvider`, без разрозненных «магических» цветов в компонентах по возможности.
+**Тема:** централизованно в [shared/config/theme.ts](../../../src/frontend/cnt_sp_web/src/shared/config/theme.ts); кастомизация токенов Ant — только через этот слой и `ConfigProvider`, без разрозненных «магических» цветов в компонентах по возможности.
 
-**Стили:** глобальные правила и дизайн-токены страницы — [app/styles/index.css](../../../../src/frontend/cnt_sp_web/src/app/styles/index.css); глобальные правки селекторов Ant — рядом (например [ant-overrides.css](../../../../src/frontend/cnt_sp_web/src/app/styles/ant-overrides.css)); стили, привязанные к компоненту, — **CSS Modules** рядом с компонентом (например `AppLayout.module.css` в `widgets/app-layout`).
+**Стили:** глобальные правила и дизайн-токены страницы — [app/styles/index.css](../../../src/frontend/cnt_sp_web/src/app/styles/index.css); глобальные правки селекторов Ant — рядом (например [ant-overrides.css](../../../src/frontend/cnt_sp_web/src/app/styles/ant-overrides.css)); стили, привязанные к компоненту, — **CSS Modules** рядом с компонентом (например `AppLayout.module.css` в `widgets/app-layout`).
 
 ---
 
 ## Работа с API
 
-- В режиме разработки запросы к backend выполняются по префиксу **`/api`**: в [vite.config.ts](../../../../src/frontend/cnt_sp_web/vite.config.ts) настроен `server.proxy` на хост API (порт и URL цели задаются в конфиге и должны совпадать с локально запущенным WebApi).
+- В режиме разработки запросы к backend выполняются по префиксу **`/api`**: в [vite.config.ts](../../../src/frontend/cnt_sp_web/vite.config.ts) настроен `server.proxy` на хост API (порт и URL цели задаются в конфиге и должны совпадать с локально запущенным WebApi).
 - В production ожидается согласованный с деплоем способ доступа к тому же префиксу (обратный прокси, единый origin с API и т.д.), чтобы относительные пути `/api/...` оставались валидными.
 - По мере роста проекта целесообразно выносить обёртки HTTP, типы ответов и обработку ошибок в слой **`shared/api`** (или эквивалент внутри `shared`) с единым контрактом для фич.
 
@@ -88,7 +88,7 @@ flowchart TB
 
 ## Текущее состояние репозитория и цель
 
-В `cnt_sp_web` введены каталоги слоёв **`app`**, **`pages`**, **`widgets`**, **`features`**, **`entities`**, **`shared`** и алиас импортов `@/`; карта каталогов — [src/README.md](../../../../src/frontend/cnt_sp_web/src/README.md). По мере роста приложения новые экраны и фичи размещаются в этих слоях с соблюдением правил импорта из таблицы выше; при отступлении оформляется явное обоснование или задача на рефакторинг.
+В `cnt_sp_web` введены каталоги слоёв **`app`**, **`pages`**, **`widgets`**, **`features`**, **`entities`**, **`shared`** и алиас импортов `@/`; карта каталогов — [src/README.md](../../../src/frontend/cnt_sp_web/src/README.md). По мере роста приложения новые экраны и фичи размещаются в этих слоях с соблюдением правил импорта из таблицы выше; при отступлении оформляется явное обоснование или задача на рефакторинг.
 
 ---
 

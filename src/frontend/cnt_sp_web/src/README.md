@@ -9,4 +9,4 @@
 | `entities/` | Бизнес-сущности в UI |
 | `shared/` | API, конфиг, переиспользуемый UI |
 
-Импорт только **вниз** по слоям FSD. Спека: [docs/architecture/specs/frontend/12-frontend-app-architecture.md](../../../../docs/architecture/specs/frontend/12-frontend-app-architecture.md)
+Импорт только **вниз** по слоям FSD. Спека: [docs/architecture/specs/frontend.md](../../../../docs/architecture/specs/frontend.md)

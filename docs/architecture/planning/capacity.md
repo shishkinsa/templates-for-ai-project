@@ -3,7 +3,7 @@
 Шаблон для оценки масштаба системы. Заполните таблицы под ваш домен; используйте результаты при выборе инфраструктуры и в ADR.
 
 **Статус:** черновик  
-**Связанные документы:** [constraints/performance.md](../requirements/constraints/performance.md), ADR в [adr/](adr/)
+**Связанные документы:** [constraints/performance.md](../../requirements/constraints/performance.md), ADR в [adr/](../adr/)
 
 ---
 
@@ -40,7 +40,7 @@
 
 | Требование | Целевое значение | Обоснование |
 |------------|------------------|-------------|
-| Доступность (uptime) | TBD % | См. [constraints/](../requirements/constraints/) |
+| Доступность (uptime) | TBD % | См. [constraints/](../../requirements/constraints/) |
 | RTO | TBD | Время восстановления |
 | RPO | TBD | Допустимая потеря данных |
 | HA для API | TBD инстансов | За балансировщиком |

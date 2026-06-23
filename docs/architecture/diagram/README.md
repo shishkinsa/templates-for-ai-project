@@ -11,7 +11,7 @@
 | `containers/cnt_sp_web/01-model.c4` | Заготовка Web SPA |
 | `containers/cnt_sp_webapi/01-model.c4` | Заготовка WebAPI |
 | `containers/cnt_sp_db/01-model.c4` | Заготовка PostgreSQL |
-| `data/cnt_sp_db/20-database-structure.md` | Описание схемы БД |
+| `data/cnt_sp_db/database.md` | Описание схемы БД |
 
 Остальные каталоги (`components/`, `behavior/`, `infrastructure/`, `security/`, …) — placeholder'ы. Добавляйте по мере роста проекта.
 
@@ -79,5 +79,5 @@ npx likec4 preview docs/architecture/diagram
 При изменении контейнеров обновляйте:
 
 1. LikeC4-модели в этом каталоге
-2. `docs/ai/context/containers.md`
+2. `docs/process/context/containers.md`
 3. ADR при смене технологий

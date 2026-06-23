@@ -103,7 +103,7 @@ psql -U postgres -f scripts/create-cnt-db.sql
 | Frontend | FSD: `entities/{example,category}`, `features/example/*`, vitest |
 | Тесты | Unit (домен, validators) + integration (CRUD, 400/404, categories) |
 | OpenSpec | Capabilities: `examples`, `categories`, `auth` |
-| AI | `AGENTS.md`, skills `/opsx-*`, [bootstrap-project.md](docs/ai/workflows/bootstrap-project.md) |
+| AI | `AGENTS.md`, skills `/opsx-*`, [bootstrap-project.md](docs/process/workflows/bootstrap-project.md) |
 | Observability | OTEL → Prometheus/Loki/Tempo, Grafana dashboard API |
 | DevOps | CI + CD (`.github/workflows/`), Dependabot, `verify.ps1`, auto-migrate в Docker |
 | Диаграммы | LikeC4: context, containers, components WebAPI |
@@ -150,10 +150,11 @@ psql -U postgres -f scripts/create-cnt-db.sql
 |-------|------------|
 | `/src` | Исходный код (frontend, webapi, lib) |
 | `/openspec` | OpenSpec: capability specs, changes, archive, schema `full-stack` |
-| `/docs/ai` | Контекст и инструкции для AI |
-| `/docs/requirements` | Бизнес-, функциональные и NFR-требования |
-| `/docs` (стандарты) | Именование, coding-standards, git-flow — см. [docs/README.md](docs/README.md) |
-| `/docs/architecture` | ADR, диаграммы, OpenAPI, спецификации, расчёт нагрузки |
+| `/manifest.yaml` | Машиночитаемый индекс артефактов (SPDF) |
+| `/docs/process` | Workflows и контекст для AI |
+| `/docs/requirements` | Бизнес-контекст и ограничения (intent) |
+| `/docs/standards` | Именование, coding-standards, git-flow |
+| `/docs/architecture` | ADR, диаграммы, OpenAPI, спецификации слоёв |
 | `/monitoring` | OTEL, Prometheus, Loki, Tempo, Grafana (локальная разработка) |
 | `/scripts` | `init-project.ps1`, `ef-migrate.ps1`, `start-monitoring.ps1`, SQL для БД |
 | `AGENTS.md` | Входная точка для AI-агентов |
@@ -173,7 +174,7 @@ src/webapi/cnt_{prefix}_webapi/
 └── 7 Tests/
 ```
 
-Подробнее: [docs/architecture/specs/backend/11-backend-app-architecture.md](docs/architecture/specs/backend/11-backend-app-architecture.md)
+Подробнее: [docs/architecture/specs/backend.md](docs/architecture/specs/backend.md)
 
 ### Frontend (Feature-Sliced Design)
 
@@ -187,7 +188,7 @@ src/frontend/cnt_{prefix}_web/src/
 └── shared/    # API-клиент, UI-kit, конфиг
 ```
 
-Подробнее: [docs/architecture/specs/frontend/12-frontend-app-architecture.md](docs/architecture/specs/frontend/12-frontend-app-architecture.md)
+Подробнее: [docs/architecture/specs/frontend.md](docs/architecture/specs/frontend.md)
 
 ---
 
@@ -198,9 +199,9 @@ src/frontend/cnt_{prefix}_web/src/
 3. **Архитектура** → ADR + LikeC4 + OpenAPI (синхронно с delta)
 4. **Код** → `src/` по `tasks.md`
 5. **Archive** → `/opsx-archive` — merge в `openspec/specs/`
-6. **AI-контекст** → `docs/FRAMEWORK.md`, `docs/manifest.yaml`, `openspec/project.md`
+6. **AI-контекст** → `manifest.yaml`, `docs/README.md`, `openspec/project.md`
 
-Подробнее: [openspec/AGENTS.md](openspec/AGENTS.md), [docs/ai/workflows/add-entity.md](docs/ai/workflows/add-entity.md), [bootstrap проекта](docs/ai/workflows/bootstrap-project.md)
+Подробнее: [AGENTS.md](AGENTS.md), [docs/process/workflows/add-entity.md](docs/process/workflows/add-entity.md), [bootstrap проекта](docs/process/workflows/bootstrap-project.md)
 
 ### OpenSpec CLI
 
@@ -218,8 +219,8 @@ Slash-команды Cursor (после restart IDE): `/opsx-propose`, `/opsx-ap
 
 - [ ] Запустить `scripts/init-project.ps1`
 - [ ] `npm install` — OpenSpec CLI
-- [ ] Заполнить `openspec/project.md`, `docs/ai/context/containers.md`, `docs/requirements/business/goals.md`
-- [ ] Заполнить `docs/architecture/capacity.md`
+- [ ] Заполнить `openspec/project.md`, `docs/process/context/containers.md`, `docs/requirements/business/goals.md`
+- [ ] Заполнить `docs/architecture/planning/capacity.md`
 - [ ] Добавить бизнес-требования в `docs/requirements/business/`
 - [ ] Принять ключевые ADR в `docs/architecture/adr/`
 - [ ] Обновить OpenAPI в `docs/architecture/openapi/components/`

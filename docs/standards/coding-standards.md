@@ -635,7 +635,7 @@ async function processPayment(request: PaymentRequest): Promise<PaymentResult> {
 
 ### Документирование frontend (React, FSD)
 
-Правила относятся к SPA **`cnt_sp_web`** и целевой структуре слоёв из [12-frontend-app-architecture.md](architecture/specs/frontend/12-frontend-app-architecture.md). Именование компонентов и файлов — в [react-naming-conventions.md](react-naming-conventions.md).
+Правила относятся к SPA **`cnt_sp_web`** и целевой структуре слоёв из [frontend.md](../architecture/specs/frontend.md). Именование компонентов и файлов — в [react.md](naming/react.md).
 
 **Язык.** Описания в комментариях — **на русском**. Имена идентификаторов в `@param` совпадают с кодом (как в сигнатуре).
 

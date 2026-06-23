@@ -42,4 +42,4 @@
 - Seed data + read-only repository
 - Минимальный frontend: entity + table без features/*
 
-См. [docs/ai/workflows/add-entity.md](../../../docs/ai/workflows/add-entity.md) — полный чеклист для write-capability.
+См. [docs/process/workflows/add-entity.md](../../../docs/process/workflows/add-entity.md) — полный чеклист для write-capability.

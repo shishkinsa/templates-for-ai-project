@@ -1,4 +1,4 @@
 // Контейнер CNT_SP_Web — детализация по мере роста (FSD-слои как components)
 
 // TBD: добавить components (app, pages, features, entities, shared)
-// См. docs/architecture/specs/frontend/12-frontend-app-architecture.md
+// См. docs/architecture/specs/frontend.md

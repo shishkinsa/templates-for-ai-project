@@ -19,6 +19,6 @@
 
 ## 📎 Последствия
 
-- Именование объектов БД: [psql-naming-conventions.md](../../psql-naming-conventions.md)
+- Именование объектов БД: [postgresql.md](../../standards/naming/postgresql.md)
 - Миграции в `SP.WebApi.DataAccess.Postgres/Migrations/`
 - Скрипт создания роли/БД: `scripts/create-cnt-db.sql`

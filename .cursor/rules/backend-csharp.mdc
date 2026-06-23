@@ -1,17 +1,15 @@
 ---
-description: Backend C# — Clean Architecture, CQRS (Requestum)
+description: Backend C# — Clean Architecture, Requestum CQRS
 globs:
   - src/webapi/**/*
 alwaysApply: false
 ---
 
-# Backend
+# Backend (C#)
 
-Слои и зависимости: [docs/architecture/specs/backend/11-backend-app-architecture.md](docs/architecture/specs/backend/11-backend-app-architecture.md).
+Слои и зависимости: [docs/architecture/specs/backend.md](docs/architecture/specs/backend.md).
 
-- UseCases: команды/запросы через Requestum (`ICommand`, `IAsyncCommandHandler`)
-- Валидация: FluentValidation в `Validators/`
-- Персистентность: только через интерфейсы репозиториев из `Infrastructure.Interfaces`
-- Контроллеры: тонкие, без бизнес-логики
-- Именование: [docs/c-charp-naming-conventions.md](docs/c-charp-naming-conventions.md)
-- Новые handlers — с unit/integration тестами
+- Контроллеры тонкие — диспетчеризация через Requestum
+- Валидация — FluentValidation в UseCases
+- Домен без зависимостей от инфраструктуры
+- Именование: [docs/standards/naming/csharp.md](docs/standards/naming/csharp.md)

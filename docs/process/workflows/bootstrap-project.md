@@ -16,9 +16,9 @@ cd my-project
 
 | Документ | Что заполнить |
 |----------|---------------|
-| [docs/ai/context/containers.md](../context/containers.md) | Описание системы, идентификаторы домена |
+| [docs/process/context/containers.md](../context/containers.md) | Описание системы, идентификаторы домена |
 | [docs/requirements/business/goals.md](../requirements/business/goals.md) | Бизнес-цели |
-| [docs/FRAMEWORK.md](../../FRAMEWORK.md) | Модель документации SPDF |
+| [docs/README.md](../README.md) | Модель документации SPDF |
 | [openspec/project.md](../../openspec/project.md) | Purpose, domain context |
 | `.cursorrules` | `project.domain`, `repository` |
 

@@ -6,5 +6,5 @@
 
 Слои backend и frontend — в отдельных спеках:
 
-- [backend/11-backend-app-architecture.md](backend/11-backend-app-architecture.md)
-- [frontend/12-frontend-app-architecture.md](frontend/12-frontend-app-architecture.md)
+- [backend.md](backend.md)
+- [frontend.md](frontend.md)

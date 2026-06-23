@@ -2,7 +2,7 @@
 
 - [ ] 1.1 Delta specs validated (`npx openspec validate <change-id> --strict --no-interactive`)
 - [ ] 1.2 OpenAPI: docs/architecture/openapi/components/openapi.yaml
-- [ ] 1.3 Типы id согласованы с docs/ai/context/containers.md
+- [ ] 1.3 Типы id согласованы с docs/process/context/containers.md
 
 ## 2. Backend (Clean Architecture)
 
@@ -28,7 +28,7 @@
 - [ ] 4.1 `docs/architecture/diagram/data/` — схема БД при новых таблицах
 - [ ] 4.2 ADR — при новой технологии или контейнере
 - [ ] 4.3 Матрица трассировки в docs/requirements/README.md
-- [ ] 4.4 docs/ai/snippets/good-examples.md — при новом паттерне
+- [ ] 4.4 docs/process/snippets/good-examples.md — при новом паттерне
 
 ## 5. Verification
 

@@ -229,7 +229,7 @@ Closes #123"
 {если есть UI изменения}
 
 ## 📚 Связанные документы
-- [ADR-0012](../architecture/adr/0012-payment-validation.md)
+- [ADR-0012](../../architecture/adr/0012-payment-validation.md)
 - capability `payments` → `openspec/specs/payments/spec.md` (пример)
 ```
 

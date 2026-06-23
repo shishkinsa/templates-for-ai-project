@@ -1,8 +1,8 @@
 # Соглашения по именованию PostgreSQL
 
-Правила именования для PostgreSQL задаются данным документом. Общие стандарты проекта (C#) — [src/.editorconfig](src/.editorconfig). В .editorconfig нет секции для SQL; проверка соответствия — по ревью и при необходимости линтерами/скриптами миграций.
+Правила именования для PostgreSQL задаются данным документом. Общие стандарты проекта (C#) — [src/.editorconfig](../../../src/.editorconfig). В .editorconfig нет секции для SQL; проверка соответствия — по ревью и при необходимости линтерами/скриптами миграций.
 
-**Рекомендация для проектов на этом шаблоне:** первичные и внешние ключи доменных сущностей в PostgreSQL и публичном API ([openapi.yaml](architecture/openapi/components/openapi.yaml)) — тип **`uuid`**. Примеры ниже с `BIGSERIAL`/`SERIAL` сохранены как **универсальные** шаблоны SQL; для таблиц продукта применяйте `uuid PRIMARY KEY DEFAULT gen_random_uuid()` (или эквивалент), если иное не зафиксировано в схеме данных в `docs/architecture/diagram/data/`.
+**Рекомендация для проектов на этом шаблоне:** первичные и внешние ключи доменных сущностей в PostgreSQL и публичном API ([openapi.yaml](../../architecture/openapi/components/openapi.yaml)) — тип **`uuid`**. Примеры ниже с `BIGSERIAL`/`SERIAL` сохранены как **универсальные** шаблоны SQL; для таблиц продукта применяйте `uuid PRIMARY KEY DEFAULT gen_random_uuid()` (или эквивалент), если иное не зафиксировано в схеме данных в `docs/architecture/diagram/data/`.
 
 | Сущность | Стиль | Пример |
 |----------|--------|--------|

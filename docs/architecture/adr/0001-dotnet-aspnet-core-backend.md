@@ -26,5 +26,5 @@
 
 ## 📎 Последствия
 
-- Структура проекта по [11-backend-app-architecture.md](../specs/backend/11-backend-app-architecture.md)
+- Структура проекта по [backend.md](../specs/backend.md)
 - Централизованные версии пакетов в `src/Directory.Packages.props`

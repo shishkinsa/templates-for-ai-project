@@ -8,6 +8,6 @@ alwaysApply: false
 
 # Документирование frontend
 
-При изменении кода в `src/frontend/*/src` проверяй TSDoc по [docs/coding-standards.md](docs/coding-standards.md).
+При изменении кода в `src/frontend/*/src` проверяй TSDoc по [docs/standards/coding-standards.md](docs/standards/coding-standards.md).
 
 Обязательно документировать: `shared/api`, `entities/*/api`, `features/*/model`, экспортируемые компоненты `pages` и `widgets`.

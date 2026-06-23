@@ -1,6 +1,6 @@
-# Документация для AI
+# Process — workflows и контекст для AI
 
-Контекст и процессы. **Входная точка:** [AGENTS.md](../../AGENTS.md) · [FRAMEWORK.md](../FRAMEWORK.md)
+**Входная точка:** [AGENTS.md](../../AGENTS.md) · [README.md](../README.md)
 
 | Файл | Назначение |
 |------|------------|

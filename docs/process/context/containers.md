@@ -12,4 +12,4 @@
 
 **Идентификаторы домена:** TBD — типы ключей (UUID, int, code), согласовать с OpenAPI и схемой БД.
 
-См. также: [FRAMEWORK.md](../../FRAMEWORK.md), [manifest.yaml](../../manifest.yaml).
+См. также: [README.md](../../README.md), [manifest.yaml](../../../manifest.yaml).

@@ -27,7 +27,7 @@ npm install
 
 ## Ветки
 
-См. [docs/git-flow.md](docs/git-flow.md): `feature/*`, `fix/*`, `docs/*`.
+См. [docs/standards/git-flow.md](docs/standards/git-flow.md): `feature/*`, `fix/*`, `docs/*`.
 
 ## Инициализация нового проекта из шаблона
 

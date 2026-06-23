@@ -3,8 +3,8 @@
 # ============================================
 # 1. ВХОДНАЯ ТОЧКА (SPDF)
 # ============================================
-framework: "docs/FRAMEWORK.md"
-manifest: "docs/manifest.yaml"
+framework: "docs/README.md"
+manifest: "manifest.yaml"
 agent_entry: "AGENTS.md"
 
 role: >-
@@ -17,8 +17,8 @@ stack:
     Клиент: React + TypeScript (CNT_SP_Web).
     API: ASP.NET Core / .NET 10 (WebAPI).
     Данные: PostgreSQL.
-  adr_index: "docs/FRAMEWORK.md#стек-индекс-adr"
-  containers: "docs/ai/context/containers.md"
+  adr_index: "docs/README.md#стек-индекс-adr"
+  containers: "docs/process/context/containers.md"
 
 project:
   name: "Sample Project"
@@ -37,8 +37,8 @@ documentation:
   openapi: "docs/architecture/openapi/components/openapi.yaml"
   adr: "docs/architecture/adr/"
   diagrams: "docs/architecture/diagram/"
-  workflows: "docs/ai/workflows/"
-  coding_standards: "docs/coding-standards.md"
+  workflows: "docs/process/workflows/"
+  standards: "docs/standards/"
 
 # ============================================
 # 3. ПОРЯДОК РАБОТЫ
@@ -46,7 +46,7 @@ documentation:
 workflow:
   before_any_task:
     - "Определи слой: frontend / backend / architecture / infra."
-    - "Прочитай docs/manifest.yaml и openspec/project.md."
+    - "Прочитай manifest.yaml и openspec/project.md."
     - "Поведение — openspec/specs/; бизнес — requirements/business/; ограничения — requirements/constraints/."
     - "ADR и LikeC4 перед сменой архитектуры."
   change_order:
@@ -64,7 +64,7 @@ public_contracts:
 # 5. ПРАВИЛА
 # ============================================
 rules:
-  - "Следуй docs/FRAMEWORK.md и docs/coding-standards.md."
+  - "Следуй docs/README.md и docs/standards/coding-standards.md."
   - "OpenSpec change для нового поведения; bugfix без change если восстанавливает spec."
   - "Новый код — тесты для UseCases и критичной логики."
 

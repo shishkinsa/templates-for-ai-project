@@ -34,4 +34,4 @@ useCases -> infraInterfaces 'depends on'
 dataAccess -> entities 'maps'
 dataAccess -> infraInterfaces 'implements'
 
-// См. docs/architecture/specs/backend/11-backend-app-architecture.md
+// См. docs/architecture/specs/backend.md

@@ -1,29 +1,77 @@
-# Стандарты и соглашения
+# Документация Sample Project (SPDF)
 
-В этом разделе собраны единые правила именования, стиля кода и работы с Git. Для C# часть правил проверяется в [src/.editorconfig](../src/.editorconfig); для TypeScript, React и SQL в .editorconfig задано только форматирование (отступы, перевод строки), именование описано в соответствующих документах ниже.
+Модель слоёв документации шаблона. **Машиночитаемый индекс:** [manifest.yaml](../manifest.yaml).
 
----
+## Быстрый старт
 
-## Структура каталога
+1. [AGENTS.md](../AGENTS.md) — правила и OpenSpec
+2. [manifest.yaml](../manifest.yaml) — карта артефактов и capability
+3. `openspec/specs/<capability>/spec.md` — канон поведения
 
-| Файл | Назначение |
-|------|-------------|
-| `c-charp-naming-conventions.md` | Именование в C# (типы, интерфейсы, методы, поля и т.д.) |
-| `ts-naming-conventions.md` | Именование в TypeScript (файлы, типы, переменные, функции) |
-| `react-naming-conventions.md` | Именование в React (компоненты, props, хуки, обработчики) |
-| `psql-naming-conventions.md` | Именование в PostgreSQL (таблицы, колонки, индексы, представления) |
-| `coding-standards.md` | Общие принципы кодирования (KISS, DRY, по языкам, тесты, инструменты) |
-| `git-flow.md` | Процесс работы с Git (ветки, коммиты, PR, релизы) |
+**При расхождении приоритет:** `openspec/specs` → OpenAPI → ADR → `requirements/constraints`.
 
----
+## Слои
 
-## Документы
+| Вопрос | Канон | Путь |
+|--------|-------|------|
+| **Что** делает система? | OpenSpec Requirement + Scenario | [../openspec/specs/](../openspec/specs/) |
+| **Зачем**? | Бизнес-контекст | [requirements/business/](requirements/business/) |
+| **Сколько / насколько безопасно?** | Ограничения | [requirements/constraints/](requirements/constraints/) |
+| **Как устроен код?** | Layer specs | [architecture/specs/](architecture/specs/) |
+| **Какой REST-контракт?** | OpenAPI | [architecture/openapi/](architecture/openapi/) |
+| **Стратегические решения** | ADR | [architecture/adr/](architecture/adr/) |
+| **Топология C4** | LikeC4 | [architecture/diagram/](architecture/diagram/) |
+| **Контейнеры (кратко)** | Таблица для AI | [process/context/containers.md](process/context/containers.md) |
+| **Где в коде** | Design + manifest | `openspec/specs/<cap>/design.md` |
+| **Как работать** | Workflows | [process/workflows/](process/workflows/) |
+| **Стиль кода** | Standards | [standards/](standards/) |
 
-| Документ | Содержание |
-|----------|------------|
-| [c-charp-naming-conventions.md](c-charp-naming-conventions.md) | Соглашения по именованию C#: пространства имён, классы, интерфейсы (I + PascalCase), методы, свойства, поля (_ + camelCase), константы, enum, DTO. Проверка через .editorconfig. |
-| [ts-naming-conventions.md](ts-naming-conventions.md) | Соглашения по именованию TypeScript: файлы и папки kebab-case, интерфейсы/типы/классы PascalCase (без префикса I), переменные и функции camelCase, константы UPPER_SNAKE_CASE, generics (T, K, V). |
-| [react-naming-conventions.md](react-naming-conventions.md) | Соглашения по именованию React: компоненты PascalCase, файлы компонентов .tsx, props-интерфейсы (ComponentName + Props), хуки use*, обработчики handle*, колбэки в пропсах on*, useState/useEffect, условный рендеринг. |
-| [psql-naming-conventions.md](psql-naming-conventions.md) | Соглашения по именованию PostgreSQL: БД, схемы, таблицы и колонки snake_case; индексы idx_*, внешние ключи fk_*, последовательности *_seq, представления v_*, функции/процедуры, триггеры tr_*. |
-| [coding-standards.md](coding-standards.md) | Общие стандарты кодирования: KISS, DRY, принципы по C#, TypeScript, React, SQL, тестирование, документирование, безопасность, производительность, инструменты. |
-| [git-flow.md](git-flow.md) | Процесс работы с Git: структура веток (main, develop, feature, release, hotfix), именование веток, коммиты, Pull Request, релизный процесс и hotfix, команды и чек-листы. |
+## Не дублировать
+
+| Не создавать | Вместо этого |
+|--------------|--------------|
+| `requirements/functional/*.md` с Gherkin | `openspec/specs/` |
+| Отдельный `tech-stack.md` | ADR (§ Стек ниже) |
+| Полная копия C4 в markdown | `process/context/containers.md` + LikeC4 |
+| Матрица трассировки в 3 местах | `manifest.yaml` + `design.md` |
+
+## Lifecycle фичи
+
+```text
+Идея → /opsx-propose → delta spec → OpenAPI → ADR/LikeC4 (если нужно)
+     → код + тесты → verify.ps1 → /opsx-archive → manifest.yaml
+```
+
+Подробнее: [process/workflows/change-lifecycle.md](process/workflows/change-lifecycle.md).
+
+## Стек (индекс ADR) {#стек-индекс-adr}
+
+| Область | ADR |
+|---------|-----|
+| Backend | [0001](architecture/adr/0001-dotnet-aspnet-core-backend.md) |
+| Frontend | [0002](architecture/adr/0002-react-typescript-frontend.md) |
+| PostgreSQL | [0003](architecture/adr/0003-use-postgres.md) |
+| Ant Design | [0004](architecture/adr/0004-ant-design-ui.md) |
+| Requestum CQRS | [0005](architecture/adr/0005-requestum-cqrs.md) |
+| OpenTelemetry | [0006](architecture/adr/0006-opentelemetry-observability.md) |
+| FluentValidation | [0007](architecture/adr/0007-fluentvalidation.md) |
+| Auth skeleton | [0008](architecture/adr/0008-jwt-authentication-skeleton.md) |
+
+## Эталонные capability
+
+| ID | Тип | Spec |
+|----|-----|------|
+| `examples` | CRUD | [spec.md](../openspec/specs/examples/spec.md) |
+| `categories` | read-only | [spec.md](../openspec/specs/categories/spec.md) |
+| `auth` | skeleton | [spec.md](../openspec/specs/auth/spec.md) |
+
+## Проверка
+
+```powershell
+.\scripts\verify.ps1
+npx likec4 validate docs/architecture/diagram
+```
+
+## `public/`
+
+Зарезервировано под сгенерированный doc-site (VitePress/MkDocs). Пока не используется.

@@ -1,8 +1,8 @@
-# SPDF — машиночитаемый индекс документации Sample Project
-# См. docs/FRAMEWORK.md
+# SPDF — машиночитаемый индекс Sample Project
+# См. docs/README.md
 
 version: 1
-framework: docs/FRAMEWORK.md
+framework: docs/README.md
 agent_entry: AGENTS.md
 
 priority_on_conflict:
@@ -26,17 +26,19 @@ layers:
     openapi: docs/architecture/openapi/components/openapi.yaml
     adr: docs/architecture/adr
     diagrams: docs/architecture/diagram
-    capacity: docs/architecture/capacity.md
+    capacity: docs/architecture/planning/capacity.md
     layers:
       assemblies: docs/architecture/specs/assemblies.md
-      backend: docs/architecture/specs/backend/11-backend-app-architecture.md
-      frontend: docs/architecture/specs/frontend/12-frontend-app-architecture.md
+      backend: docs/architecture/specs/backend.md
+      frontend: docs/architecture/specs/frontend.md
   process:
-    workflows: docs/ai/workflows
-    context: docs/ai/context/containers.md
+    workflows: docs/process/workflows
+    context: docs/process/context/containers.md
   standards:
-    root: docs
-    coding: docs/coding-standards.md
+    root: docs/standards
+    coding: docs/standards/coding-standards.md
+    git: docs/standards/git-flow.md
+    naming: docs/standards/naming
 
 capabilities:
   examples:

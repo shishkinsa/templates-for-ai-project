@@ -21,4 +21,4 @@
 
 - Компоненты UI в `entities/*/ui`, `features/*/ui`
 - Тема и переопределения: `src/app/styles/ant-overrides.css`
-- См. [12-frontend-app-architecture.md](../specs/frontend/12-frontend-app-architecture.md)
+- См. [frontend.md](../specs/frontend.md)

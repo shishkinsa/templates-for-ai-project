@@ -25,7 +25,7 @@
 
 - [ ] Delta spec в OpenSpec change (не отдельный FR для поведения)
 - [ ] Бизнес-контекст в [capabilities.md](../../requirements/business/capabilities.md) при необходимости
-- [ ] Обновить [docs/manifest.yaml](../../manifest.yaml) при новой capability
+- [ ] Обновить [manifest.yaml](../../../manifest.yaml) при новой capability
 
 ## 2. Контракт
 
@@ -55,7 +55,7 @@
 
 - [ ] `docs/architecture/diagram/data/` — схема БД при новых таблицах
 - [ ] ADR — при новой технологии или контейнере
-- [ ] `docs/ai/snippets/good-examples.md` — добавить эталонный фрагмент
+- [ ] `docs/process/snippets/good-examples.md` — добавить эталонный фрагмент
 
 ## 6. Проверка
 

@@ -1,6 +1,6 @@
 # Требования (intent layer)
 
-Модель SPDF: [FRAMEWORK.md](../FRAMEWORK.md) · Индекс: [index.yaml](index.yaml) · [manifest.yaml](../manifest.yaml)
+Модель SPDF: [README.md](../README.md) · Индекс: [index.yaml](index.yaml) · [manifest.yaml](../../manifest.yaml)
 
 | Папка | Назначение |
 |-------|------------|

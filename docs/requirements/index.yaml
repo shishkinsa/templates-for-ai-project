@@ -1,8 +1,8 @@
-# Индекс требований — см. docs/FRAMEWORK.md и docs/manifest.yaml
+# Индекс требований — см. docs/README.md и manifest.yaml
 
 version: 1
-framework: docs/FRAMEWORK.md
-manifest: docs/manifest.yaml
+framework: docs/README.md
+manifest: manifest.yaml
 
 business:
   goals: docs/requirements/business/goals.md
