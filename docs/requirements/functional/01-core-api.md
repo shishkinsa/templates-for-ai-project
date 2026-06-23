@@ -1,5 +1,8 @@
 # FR-001: REST API для примеров сущностей
 
+> **Канон поведения:** [openspec/specs/examples/spec.md](../../openspec/specs/examples/spec.md)  
+> Этот документ — view для матрицы трассировки; при расхождении приоритет у OpenSpec spec.
+
 ## 📋 Метаданные
 
 | Атрибут | Значение |

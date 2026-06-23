@@ -12,3 +12,7 @@ export type ListExamplesResponse = {
 export type CreateExampleResponse = {
   item: ExampleItem;
 };
+
+export type UpdateExampleResponse = {
+  item: ExampleItem;
+};

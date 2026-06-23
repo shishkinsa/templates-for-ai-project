@@ -1,25 +1,28 @@
 # Участие в разработке
 
-## Порядок изменений (docs-first)
+## Порядок изменений (OpenSpec + docs-first)
 
-1. Требование → `docs/requirements/`
+1. OpenSpec change → delta specs → validate
 2. Архитектура → ADR, LikeC4, OpenAPI
 3. Код → `src/`
-4. Тесты
-5. Обновление `docs/ai/` при смене паттернов
+4. Тесты + `.\scripts\verify.ps1`
+5. Archive → merge в `openspec/specs/`
+
+Для новых сущностей: schema `full-stack` — [openspec/schemas/full-stack/](openspec/schemas/full-stack/).
 
 ## Перед Pull Request
 
 ```powershell
+npm install
 .\scripts\verify.ps1
 ```
 
 Чеклист:
 
-- [ ] Требования / OpenAPI синхронизированы с кодом
+- [ ] OpenSpec specs/changes валидны (`npx openspec validate --all --strict --no-interactive`)
+- [ ] OpenAPI синхронизирован с кодом и delta specs
 - [ ] `dotnet test` проходит
 - [ ] `npm run lint` и `npm run build` проходят
-- [ ] Новые публичные API отражены в `openapi.yaml`
 - [ ] ADR добавлен при архитектурных решениях
 
 ## Ветки
@@ -30,6 +33,8 @@
 
 ```powershell
 .\scripts\init-project.ps1 -ProjectName "My Project" -ProjectPrefix "MP" -ProjectSlug "my-project"
+npm install
+npx openspec list --specs
 ```
 
 Dry-run:

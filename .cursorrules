@@ -34,6 +34,12 @@ project:
 # 2. ДОКУМЕНТАЦИЯ И ADR
 # ============================================
 documentation:
+  openspec:
+    project: "openspec/project.md"
+    agents: "openspec/AGENTS.md"
+    specs: "openspec/specs/"
+    changes: "openspec/changes/"
+    schema_full_stack: "openspec/schemas/full-stack/"
   project_context: "docs/ai/project-context.md"
   tech_stack: "docs/ai/tech-stack.md"
   cursor_instructions: "docs/ai/cursor-rules.md"
@@ -72,13 +78,22 @@ documentation:
 workflow:
   before_any_task:
     - "Определи слой: frontend / backend / архитектура / инфраструктура."
-    - "Прочитай docs/ai/project-context.md и при смене стека — docs/ai/tech-stack.md."
-    - "Проверь релевантные требования в docs/requirements/."
+    - "Прочитай docs/ai/project-context.md, openspec/project.md и при смене стека — docs/ai/tech-stack.md."
+    - "Проверь openspec/specs/ и активные changes (npx openspec list)."
+    - "Проверь релевантные требования в docs/requirements/business/ и NFR."
     - "Для архитектурных решений сверься с docs/architecture/adr/."
     - "Не противоречь принятым ADR без явного нового ADR."
 
   change_order:
-    - "Требования → архитектура (модели, ADR) → код → документация артефактов."
+    - "OpenSpec change (delta specs) → архитектура (ADR, OpenAPI, LikeC4) → код → archive → docs."
+
+  openspec:
+    project: "openspec/project.md"
+    agents: "openspec/AGENTS.md"
+    specs: "openspec/specs/"
+    changes: "openspec/changes/"
+    schema_full_stack: "openspec/schemas/full-stack/"
+    cli: "npx openspec"
 
 # ============================================
 # 4. ПУБЛИЧНЫЕ КОНТРАКТЫ
@@ -95,7 +110,7 @@ rules:
   - "Следуй docs/ai/cursor-rules.md и стандартам в docs/ (см. docs/README.md)."
   - "Соблюдай именование из docs/*-naming-conventions.md."
   - "Перед изменением архитектуры проверь ADR и модели LikeC4."
-  - "Перед реализацией фич — соответствие docs/requirements/."
+  - "Перед реализацией фич — OpenSpec change + соответствие openspec/specs/."
   - "Используй существующие паттерны; не добавляй зависимости без необходимости."
   - "Новый код сопровождай тестами для UseCases и критичной логики."
 

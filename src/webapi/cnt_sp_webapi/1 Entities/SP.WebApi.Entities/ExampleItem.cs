@@ -29,4 +29,17 @@ public sealed class ExampleItem
             CreatedAt = DateTimeOffset.UtcNow,
         };
     }
+
+    /// <summary>
+    /// Переименовывает сущность.
+    /// </summary>
+    public void Rename(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException("Name is required.", nameof(name));
+        }
+
+        Name = name.Trim();
+    }
 }

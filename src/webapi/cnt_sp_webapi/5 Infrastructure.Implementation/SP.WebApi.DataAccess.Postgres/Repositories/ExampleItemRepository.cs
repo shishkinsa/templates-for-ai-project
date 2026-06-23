@@ -30,4 +30,22 @@ public sealed class ExampleItemRepository(AppDbContext dbContext) : IExampleItem
             .OrderByDescending(x => x.CreatedAt)
             .ToListAsync(cancellationToken);
     }
+
+    public async Task UpdateAsync(ExampleItem item, CancellationToken cancellationToken = default)
+    {
+        dbContext.ExampleItems.Update(item);
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var item = await dbContext.ExampleItems.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        if (item is null)
+        {
+            return;
+        }
+
+        dbContext.ExampleItems.Remove(item);
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

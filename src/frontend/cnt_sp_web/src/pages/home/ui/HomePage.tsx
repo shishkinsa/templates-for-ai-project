@@ -1,7 +1,16 @@
-import { Typography } from 'antd';
+import { Button, Space, Typography } from 'antd';
 import { useCallback, useEffect, useState } from 'react';
-import { createExample, ExampleTable, fetchExamples, type ExampleItem } from '@/entities/example';
+import {
+  createExample,
+  deleteExample,
+  ExampleTable,
+  fetchExamples,
+  updateExample,
+  type ExampleItem,
+} from '@/entities/example';
 import { CreateExampleForm } from '@/features/example/create-item';
+import { DeleteExampleButton } from '@/features/example/delete-item';
+import { EditExampleModal } from '@/features/example/edit-item';
 import { apiFetch } from '@/shared/api/http';
 
 type HealthResponse = { status: string; service: string };
@@ -15,6 +24,7 @@ export function HomePage() {
   const [items, setItems] = useState<ExampleItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [listError, setListError] = useState<string | null>(null);
+  const [editingItem, setEditingItem] = useState<ExampleItem | null>(null);
 
   const loadExamples = useCallback(async () => {
     setLoading(true);
@@ -65,11 +75,21 @@ export function HomePage() {
     await loadExamples();
   };
 
+  const handleUpdate = async (id: string, name: string) => {
+    await updateExample(id, name);
+    await loadExamples();
+  };
+
+  const handleDelete = async (id: string) => {
+    await deleteExample(id);
+    await loadExamples();
+  };
+
   return (
     <div>
       <Typography.Title level={3}>Sample Project</Typography.Title>
       <Typography.Paragraph>
-        Эталонная фича: список и создание примеров через REST API и FSD-слои.
+        Эталонная фича: полный CRUD примеров через REST API и FSD-слои (OpenSpec pilot).
       </Typography.Paragraph>
       {health && (
         <Typography.Text type="success">
@@ -89,8 +109,25 @@ export function HomePage() {
         </Typography.Paragraph>
       )}
       <div style={{ marginTop: 16 }}>
-        <ExampleTable items={items} loading={loading} />
+        <ExampleTable
+          items={items}
+          loading={loading}
+          renderActions={(item) => (
+            <Space size="small">
+              <Button type="link" onClick={() => setEditingItem(item)}>
+                Изменить
+              </Button>
+              <DeleteExampleButton item={item} onDelete={handleDelete} />
+            </Space>
+          )}
+        />
       </div>
+      <EditExampleModal
+        item={editingItem}
+        open={editingItem !== null}
+        onClose={() => setEditingItem(null)}
+        onSubmit={handleUpdate}
+      />
     </div>
   );
 }

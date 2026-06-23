@@ -7,7 +7,7 @@
 | Инструмент | Версия | Назначение |
 |------------|--------|------------|
 | [.NET SDK](https://dotnet.microsoft.com/download) | 10.x | Backend WebAPI |
-| [Node.js](https://nodejs.org/) | 22+ | Frontend (Vite) |
+| [Node.js](https://nodejs.org/) | 22+ | Frontend (Vite), OpenSpec CLI |
 | [PostgreSQL](https://www.postgresql.org/) | 16+ | База данных (опционально на старте) |
 | [Docker](https://www.docker.com/) | актуальная | Сборка и запуск в контейнерах |
 | PowerShell | 5.1+ / 7+ | Скрипт `init-project.ps1` |
@@ -102,7 +102,7 @@ psql -U postgres -f scripts/create-cnt-db.sql
 | Backend | CQRS (Requestum): create/list/get `ExampleItem`, `ApiExceptionHandler`, EF миграция |
 | Frontend | FSD: `entities/example`, `features/example/create-item`, таблица на главной |
 | Тесты | Unit (домен) + integration (`WebApplicationFactory`, InMemory БД) |
-| AI | `AGENTS.md`, `.cursorrules`, `docs/ai/*`, scoped rules, good/bad snippets |
+| AI | `AGENTS.md`, OpenSpec (`openspec/`), `.cursorrules`, `docs/ai/*`, slash-команды `/opsx-*` |
 | Observability | OTEL Collector, Prometheus, Loki, Tempo, Grafana (`monitoring/`) |
 | DevOps | `docker-compose.yml`, `docker-compose.monitoring.yml`, CI (`.github/workflows/ci.yml`), `verify.ps1`, `ef-migrate.ps1`, `init-project.ps1` |
 | Диаграммы | Минимальная LikeC4-модель (`docs/architecture/diagram/context/`) |
@@ -130,7 +130,7 @@ psql -U postgres -f scripts/create-cnt-db.sql
 |---------|--------|
 | Аутентификация / Identity | Нет |
 | Grafana dashboards (готовые панели) | Только datasources; дашборды — по необходимости |
-| Update/Delete для `ExampleItem` | Только create + list + get |
+| Update/Delete для `ExampleItem` | Реализовано (OpenSpec pilot) — см. [pilot-update-delete.md](docs/ai/workflows/pilot-update-delete.md) |
 | OpenAPI → TypeScript codegen | Типы вручную в `entities/*/model` |
 
 ---
@@ -140,6 +140,7 @@ psql -U postgres -f scripts/create-cnt-db.sql
 | Папка | Назначение |
 |-------|------------|
 | `/src` | Исходный код (frontend, webapi, lib) |
+| `/openspec` | OpenSpec: capability specs, changes, archive, schema `full-stack` |
 | `/docs/ai` | Контекст и инструкции для AI |
 | `/docs/requirements` | Бизнес-, функциональные и NFR-требования |
 | `/docs` (стандарты) | Именование, coding-standards, git-flow — см. [docs/README.md](docs/README.md) |
@@ -181,21 +182,34 @@ src/frontend/cnt_{prefix}_web/src/
 
 ---
 
-## Порядок работы (docs-first)
+## Порядок работы (docs-first + OpenSpec)
 
-1. **Требования** → `docs/requirements/` ([template.md](docs/requirements/template.md))
-2. **Расчёт нагрузки** → [docs/architecture/01-calc-architecture.md](docs/architecture/01-calc-architecture.md)
-3. **Архитектура** → ADR + диаграммы → `docs/architecture/`
-4. **Контракты** → OpenAPI → `docs/architecture/openapi/`
-5. **Код** → `src/` по спецификациям слоёв
-6. **AI-контекст** → `docs/ai/project-context.md` и `.cursorrules`
+1. **OpenSpec change** → `/opsx-propose` или `npx openspec new change "<id>" --schema full-stack`
+2. **Delta specs** → `openspec/changes/<id>/specs/` → validate
+3. **Архитектура** → ADR + LikeC4 + OpenAPI (синхронно с delta)
+4. **Код** → `src/` по `tasks.md`
+5. **Archive** → `/opsx-archive` — merge в `openspec/specs/`
+6. **AI-контекст** → `openspec/project.md`, `docs/ai/project-context.md`
+
+Подробнее: [openspec/AGENTS.md](openspec/AGENTS.md), [docs/ai/workflows/add-entity.md](docs/ai/workflows/add-entity.md), [pilot update/delete](docs/ai/workflows/pilot-update-delete.md)
+
+### OpenSpec CLI
+
+```powershell
+npm install                    # @fission-ai/openspec в devDependencies
+npx openspec list --specs      # capabilities
+npx openspec validate examples --type spec --strict --no-interactive
+```
+
+Slash-команды Cursor (после restart IDE): `/opsx-propose`, `/opsx-apply`, `/opsx-archive`
 
 ---
 
 ## Что настроить в новом проекте
 
 - [ ] Запустить `scripts/init-project.ps1`
-- [ ] Заполнить `docs/ai/project-context.md` и `docs/ai/tech-stack.md`
+- [ ] `npm install` — OpenSpec CLI
+- [ ] Заполнить `openspec/project.md`, `docs/ai/project-context.md`, `docs/ai/tech-stack.md`
 - [ ] Заполнить `docs/architecture/01-calc-architecture.md`
 - [ ] Добавить бизнес-требования в `docs/requirements/business/`
 - [ ] Принять ключевые ADR в `docs/architecture/adr/`

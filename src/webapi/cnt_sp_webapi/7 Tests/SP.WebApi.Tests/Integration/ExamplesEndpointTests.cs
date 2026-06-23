@@ -32,7 +32,40 @@ public sealed class ExamplesEndpointTests(WebApiFactory factory) : IClassFixture
         Assert.Contains(list!.Items, x => x.Name == "Integration test");
     }
 
+    [Fact]
+    public async Task UpdateAndDeleteExample_Works()
+    {
+        var createResponse = await _client.PostAsJsonAsync(
+            "/api/v1/examples",
+            new { name = "Before update" });
+        createResponse.EnsureSuccessStatusCode();
+
+        var created = await createResponse.Content.ReadFromJsonAsync<CreateExamplePayload>();
+        Assert.NotNull(created);
+
+        var updateResponse = await _client.PutAsJsonAsync(
+            $"/api/v1/examples/{created!.Item.Id}",
+            new { name = "After update" });
+
+        Assert.Equal(HttpStatusCode.OK, updateResponse.StatusCode);
+
+        var getResponse = await _client.GetAsync($"/api/v1/examples/{created.Item.Id}");
+        getResponse.EnsureSuccessStatusCode();
+        var getPayload = await getResponse.Content.ReadFromJsonAsync<GetExamplePayload>();
+        Assert.Equal("After update", getPayload!.Item.Name);
+
+        var deleteResponse = await _client.DeleteAsync($"/api/v1/examples/{created.Item.Id}");
+        Assert.Equal(HttpStatusCode.NoContent, deleteResponse.StatusCode);
+
+        var notFoundResponse = await _client.GetAsync($"/api/v1/examples/{created.Item.Id}");
+        Assert.Equal(HttpStatusCode.NotFound, notFoundResponse.StatusCode);
+    }
+
     private sealed record ListExamplesPayload(IReadOnlyList<ExampleItemPayload> Items);
+
+    private sealed record CreateExamplePayload(ExampleItemPayload Item);
+
+    private sealed record GetExamplePayload(ExampleItemPayload Item);
 
     private sealed record ExampleItemPayload(Guid Id, string Name, DateTimeOffset CreatedAt);
 }

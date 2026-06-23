@@ -1,6 +1,22 @@
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 
+Write-Host "=== OpenSpec: validate specs ===" -ForegroundColor Cyan
+Push-Location $root
+try {
+    if (Test-Path 'package.json') {
+        if (-not (Test-Path 'node_modules')) {
+            npm install --silent 2>$null
+        }
+        npx openspec validate --specs --strict --no-interactive
+        if ($LASTEXITCODE -ne 0) { throw "OpenSpec specs validation failed" }
+        npx openspec validate --changes --strict --no-interactive
+        if ($LASTEXITCODE -ne 0) { throw "OpenSpec changes validation failed" }
+    }
+} finally {
+    Pop-Location
+}
+
 Write-Host "=== Backend: build & test ===" -ForegroundColor Cyan
 $webProject = Join-Path $root 'src\webapi\cnt_sp_webapi\6 WebApp\SP.WebApi.WebApp.csproj'
 $testProject = Join-Path $root 'src\webapi\cnt_sp_webapi\7 Tests\SP.WebApi.Tests\SP.WebApi.Tests.csproj'

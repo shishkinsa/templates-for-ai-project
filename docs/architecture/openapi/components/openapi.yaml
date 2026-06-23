@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Sample Project API
-  version: 0.2.0
+  version: 0.3.0
   description: Канонический REST-контракт. Обновляйте синхронно с кодом WebAPI и клиента.
 
 servers:
@@ -75,6 +75,50 @@ paths:
                 $ref: '#/components/schemas/GetExampleByIdResponse'
         '404':
           description: Не найдено
+    put:
+      operationId: updateExample
+      summary: Обновить пример
+      tags: [Examples]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateExampleRequest'
+      responses:
+        '200':
+          description: Обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateExampleResponse'
+        '400':
+          description: Ошибка валидации
+        '404':
+          description: Не найдено
+    delete:
+      operationId: deleteExample
+      summary: Удалить пример
+      tags: [Examples]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Удалено
+        '404':
+          description: Не найдено
 
 components:
   schemas:
@@ -128,6 +172,21 @@ components:
             $ref: '#/components/schemas/ExampleItemDto'
 
     GetExampleByIdResponse:
+      type: object
+      required: [item]
+      properties:
+        item:
+          $ref: '#/components/schemas/ExampleItemDto'
+
+    UpdateExampleRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          maxLength: 256
+
+    UpdateExampleResponse:
       type: object
       required: [item]
       properties:

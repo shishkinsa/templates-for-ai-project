@@ -1,12 +1,22 @@
 # Workflow: добавление новой сущности
 
-Чеклист для AI и разработчика. Эталон — `ExampleItem`.
+Чеклист для AI и разработчика. Эталон — capability `examples` / `ExampleItem`.
+
+## 0. OpenSpec change (обязательно для новых сущностей)
+
+- [ ] `/opsx-propose add-{entity}` или `npx openspec new change "add-{entity}" --schema full-stack`
+- [ ] Delta specs в `openspec/changes/<id>/specs/{capability}/spec.md`
+- [ ] `npx openspec validate <id> --strict --no-interactive` — до реализации
+- [ ] Approve proposal перед кодом
+- [ ] После деплоя: `/opsx-archive` — merge в `openspec/specs/`
+
+Шаблон tasks для schema `full-stack`: [openspec/schemas/full-stack/templates/tasks.md](../../openspec/schemas/full-stack/templates/tasks.md)
 
 ## 1. Требования
 
-- [ ] Создать FR по [docs/requirements/template.md](../../requirements/template.md)
-- [ ] Критерии приёмки в Gherkin
-- [ ] Связать с бизнес-целями при необходимости
+- [ ] Delta spec в OpenSpec change (не отдельный FR для поведения)
+- [ ] Бизнес-контекст в [docs/requirements/business/](../../requirements/business/) при необходимости
+- [ ] Обновить матрицу трассировки в [docs/requirements/README.md](../../requirements/README.md)
 
 ## 2. Контракт
 
@@ -42,5 +52,5 @@
 
 ```powershell
 .\scripts\verify.ps1
-dotnet test
+npx openspec validate --specs --strict --no-interactive
 ```

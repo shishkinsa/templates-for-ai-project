@@ -39,3 +39,21 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  openspec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install OpenSpec
+        run: npm install
+
+      - name: Validate specs
+        run: npx openspec validate --specs --strict --no-interactive
+
+      - name: Validate active changes
+        run: npx openspec validate --changes --strict --no-interactive
